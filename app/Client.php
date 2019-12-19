@@ -9,6 +9,16 @@ class Client extends Model
     protected $fillable = [
         'name',
         'logo',
-        'dept_id'
+        'department_id'
     ];
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+
+    public function project()
+    {
+        return $this->hasMany('App\Project');
+    }
 }

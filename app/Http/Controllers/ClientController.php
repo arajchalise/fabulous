@@ -9,7 +9,14 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return Client::all();
+        $clients = Client::all();
+        return $clients;
+    }
+    public function allclients()
+    {
+        $clients = Client::with('department')->with('project')->get();
+        return view('Clients.index', ['clients' => $clients]);
+        return $clients;
     }
 
     public function show(Client $client)
@@ -36,7 +43,8 @@ class ClientController extends Controller
     {
         return Client::create([
             'name' => 'ABC Enterprises',
-            'logo' => 'logo.png'
+            'logo' => 'logo.png',
+            'department_id' => 1
         ]);
     }
 

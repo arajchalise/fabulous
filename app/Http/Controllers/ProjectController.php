@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Project;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        return Project::all();
+        $projects =  Project::with('department')
+                             ->with('client')->get();
+        // return $projects;
+        return view('Projects.index', ['projects' => $projects]);
     }
 
     public function show(Project $project)
@@ -22,7 +26,8 @@ class ProjectController extends Controller
             'name' => 'asfdf',
             'description' => 'Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.',
             'photo' => 'projet.jpg',
-            'dept_id' => 1
+            'department_id' => 1,
+            'client_id' => 1
         ]);
     }
 

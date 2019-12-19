@@ -10,4 +10,14 @@ class Department extends Model
         'name',
         'description'
     ];
+
+    public function project()
+    {
+        return $this->hasMany('App\Project');
+    }
+
+    public function client()
+    {
+        return $this->hasMany('App\Client');
+    }
 }

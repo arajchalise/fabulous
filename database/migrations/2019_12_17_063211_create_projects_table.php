@@ -18,10 +18,12 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('photo');
-            $table->unsignedBigInteger('dept_id');
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('client_id');
             $table->timestamps();
 
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

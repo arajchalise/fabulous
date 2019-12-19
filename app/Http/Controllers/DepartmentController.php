@@ -9,7 +9,17 @@ class DepartmentController extends Controller
 {
     public function index()
        {
-           return Department::all();
+           $departments = Department::all();
+           //return view('Department.index', ['departments' => $departments]);
+           return $departments;
+       }
+    public function alldepartments()
+       {
+           $departments = Department::with('project')
+                                      ->with('client')->get();
+           // return $departments;
+           return view('Department.index', ['departments' => $departments]);
+           // return $departments;
        }
 
     public function show(Department $department)

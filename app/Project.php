@@ -9,7 +9,19 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'dept_id',
+        'department_id',
+        'client_id',
         'photo'
     ];
+
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
 }

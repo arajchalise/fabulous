@@ -17,10 +17,10 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('logo');
-            $table->unsignedBigInteger('dept_id');
+            $table->unsignedBigInteger('department_id');
             $table->timestamps();
 
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 
