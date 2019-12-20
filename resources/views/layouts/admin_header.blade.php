@@ -52,6 +52,9 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li>
+                    <a href="{{ route('users') }}" style="text-align: center;"> Users</a>
+                </li>
+                <li>
                     <a href="{{ route('departments') }}" style="text-align: center;"> Departments</a>
                 </li>
                 <li>
@@ -64,8 +67,17 @@
                     <a href="{{ route('gallery') }}" style="text-align: center;">Gallery</a>
                 </li>
                 <li>
-                    <a href="{{ route('services') }}" style="text-align: center;">Services</a>
+                    <a href="{{ route('service') }}" style="text-align: center;">Services</a>
                 </li>
+                <li>
+                    <a href="{{ route('menus') }}" style="text-align: center;">Menu</a>
+                </li> 
+                <li>
+                    <a href="{{ route('submenus') }}" style="text-align: center;">Sub Menu</a>
+                </li>
+                <li>
+                    <a href="{{ route('videos') }}" style="text-align: center;">Video</a>
+                </li>   
             </ul>
         </div>
         <!-- /.navbar-collapse -->

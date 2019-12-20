@@ -16,12 +16,17 @@ class ClientController extends Controller
     {
         $clients = Client::with('department')->with('project')->get();
         return view('Clients.index', ['clients' => $clients]);
-        return $clients;
+        //return $clients;
     }
 
     public function show(Client $client)
     {
         return Client::find($client->id);
+    }
+
+    public function create()
+    {
+        return view('Clients.create');
     }
 
     public function edit(Client $client)

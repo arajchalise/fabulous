@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesTable extends Migration
+class CreateSubmenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('submenus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type_of_service');
-            $table->text('description');
-            $table->unsignedBigInteger('dept_id');
+            $table->string('submenu_name');
+            $table->string('url');
+            $table->unsignedBigInteger('menu_id');
             $table->timestamps();
 
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('submenus');
     }
 }

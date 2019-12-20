@@ -54,6 +54,29 @@ Route::get('/project/store', 'ProjectController@store')->name('projectStore');
 
 // Gallery
 Route::get('/gallery', 'GallaryController@index')->name('gallery');
+Route::get('/gallery/store', 'GallaryController@store');
+
+// Service
+Route::get('/service', 'ServiceController@getServices')->name('service');
+
+
+// Menu
+Route::get('/menus', 'MenuController@index')->name('menus');
+Route::get('/menu/store', 'MenuController@store')->name('menustore');
+
+// submenu
+Route::get('/submenu/store', 'SubmenuController@store');
+Route::get('/submenus', 'SubmenuController@index')->name('submenus');
+
+// Videos
+Route::get('/videos', 'VideoController@index')->name('videos');
+Route::get('video/store', 'VideoController@store');
+
+// User
+Route::get('/users', 'UserController@index')->name('users');
+
+// Roles 
+// Route::get('/role/store', 'RoleController@store');
 
 Auth::routes();
 

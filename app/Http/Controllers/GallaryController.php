@@ -9,7 +9,8 @@ class GallaryController extends Controller
 {
     public function index()
     {
-       return Gallary::all();
+       $galleries = Gallary::all();
+       return view('Gallery.index', ['galleries' => $galleries]);
     }
 
     public function show(Gallary $gallary)
@@ -20,7 +21,8 @@ class GallaryController extends Controller
     public function store()
     {
         return Gallary::create([
-            'photo' => ''
+            'photo' => 'gal.jpg',
+            'caption' => 'Hello World'
         ]);
     }
 }

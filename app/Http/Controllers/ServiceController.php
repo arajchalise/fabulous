@@ -20,7 +20,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $serv = Service::find($service->id);
-        return view('Services.edit', ['serv' => $serv])
+        return view('Services.edit', ['serv' => $serv]);
     }
 
     public function store()
@@ -35,5 +35,11 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         return Service::where('id', '=', $id)->delete();
+    }
+
+    public function getServices()
+    {
+        $services = Service::all();
+        return view('Services.index', ['services' => $services]);
     }
 }
