@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use Auth;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        return Service::all();
+        return Service::with('department')->get();
     }
 
     public function show(Service $service)
     {
         return Service::find($service->id);
+    }
+
+    public function create()
+    {
+        return view('Services.create');
     }
 
     public function edit(Service $service)
@@ -23,12 +29,12 @@ class ServiceController extends Controller
         return view('Services.edit', ['serv' => $serv]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         return Service::create([
-            'dept_id' => 1,
-            'type_of_service',
-            'description' => 'Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.'
+            'type_of_service' => $request->name,
+            'description' => $request->description,
+            'department_id' => Auth::user()->department_id
         ]);
     }
 

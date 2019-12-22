@@ -17,10 +17,10 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type_of_service');
             $table->text('description');
-            $table->unsignedBigInteger('dept_id');
+            $table->unsignedBigInteger('department_id');
             $table->timestamps();
 
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 

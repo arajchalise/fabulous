@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\Client;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -20,15 +22,27 @@ class ProjectController extends Controller
         return Project::find($project->id);
     }
 
-    public function store()
+    public function create()
     {
-        return Project::create([
-            'name' => 'asfdf',
-            'description' => 'Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.',
-            'photo' => 'projet.jpg',
-            'department_id' => 1,
-            'client_id' => 1
-        ]);
+        $clients = Client::all();
+        return view('Projects.create', ['clients' => $clients]);
+    }
+
+    public function store(Request $request)
+    {
+        $file = $request->file('photo');
+        $name = str_replace(" ", "_", $request->pname);
+        $ext = $file->getClientOriginalExtension();
+        if($file->move('/projectImages', $name.".".$ext)){
+            return Project::create([
+                'name' => $request->pname,
+                'description' => $request->description,
+                'photo' => $name.".".$ext,
+                'client_id' => $request->cid,
+                'department_id' => Auth::user()->department_id
+            ]);
+
+        }
     }
 
     public function update()

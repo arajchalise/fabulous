@@ -25,7 +25,7 @@ class VideoController extends Controller
      */
     public function create()
     {
-        //
+        return view('Videos.create');
     }
 
     /**
@@ -36,9 +36,13 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        return Video::create([
-            'video' => 'fab.mp4'
-        ]);
+        $file = $request->file('video');
+        $ext = $file->getClientOriginalExtension();
+            if($file->move('videos/', 'background.'.$ext)){
+                return Video::create([
+                'video' => 'background.'.$ext
+            ]);
+        }
     }
 
     /**

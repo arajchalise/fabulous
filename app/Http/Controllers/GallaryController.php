@@ -18,11 +18,21 @@ class GallaryController extends Controller
         return Gallary::find($gallary->id);
     }
 
-    public function store()
+    public function create()
     {
-        return Gallary::create([
-            'photo' => 'gal.jpg',
-            'caption' => 'Hello World'
-        ]);
+        return view('Gallery.create');
+    }
+
+    public function store(Request $request)
+    {
+            $file = $request->file('photo');
+            $name = str_replace(" ", "_", $file->getClientOriginalName());
+            $ext = $file->getClientOriginalExtension();
+            if ($file->move("images/", $name.".".$ext)){
+                return Gallary::create([
+                    'photo' => $name,
+                    'caption' => $request->caption
+                ]);
+            }
     }
 }

@@ -20,4 +20,9 @@ class Department extends Model
     {
         return $this->hasMany('App\Client');
     }
+
+    public function service()
+    {
+        return $this->hasMany('App\Service');
+    }
 }

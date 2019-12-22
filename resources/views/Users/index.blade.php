@@ -19,7 +19,10 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->department->name }}</td>
             <td>{{ $user->role->name }}</td>
-            <td><a href="/user/{{ $user->id }}/edit">Edit</a><a href="/user/{{ $user->id }}/destroy">Delete</a>
+            <td>
+              @if($user->role->name == 'Unverified')<a href="/user/{{ $user->id }}/verify">Verify</a>@endif
+              <a href="/user/{{ $user->id }}/edit">Edit</a>
+              <a href="/user/{{ $user->id }}/destroy">Delete</a>
             </td>
         </tr>
     @endforeach

@@ -9,7 +9,7 @@ class DepartmentController extends Controller
 {
     public function index()
        {
-           $departments = Department::all();
+           $departments = Department::where('name', '!=', 'Unassigned')->get();
            //return view('Department.index', ['departments' => $departments]);
            return $departments;
        }

@@ -76,7 +76,7 @@
        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
      </div>
       <div class="col-lg-4 col-md-4 col-sm-12" data-aos="fade-left" data-aos-duration="3000">
-        <img src="images/itimage.png" height="300">
+        <img src="{{asset('images')}}/itimage.png" height="300">
       </div>
    </div>
    <div>

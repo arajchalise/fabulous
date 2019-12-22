@@ -25,7 +25,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return view('Menus.create');
     }
 
     /**
@@ -37,8 +37,8 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         return Menu::create([
-            'menu_name' => 'Contact',
-            'url' => '/contact'
+            'menu_name' => $request->name,
+            'url' => $request->url
         ]);
     }
 

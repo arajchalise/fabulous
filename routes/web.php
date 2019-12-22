@@ -38,11 +38,11 @@ Route::get('/contact', function(){
 
 //departments
 Route::get('/alldepartments', 'DepartmentController@alldepartments')->name('departments');
-Route::get('/department/store', 'DepartmentController@store')->name('storeDepartment');
+Route::post('/department/store', 'DepartmentController@store')->name('storeDepartment');
 // Clients
 
 Route::get('/allclients', 'ClientController@allclients')->name('clients');
-Route::get('/client/store', 'ClientController@store')->name('clientStore');
+Route::post('/client/store', 'ClientController@store')->name('clientStore');
 Route::get('/client/create', function(){
     return view('Clients.create');
 })->name('clientCreate');
@@ -50,31 +50,39 @@ Route::get('/client/create', function(){
 // Projects
 Route::get('/allprojects', 'ProjectController@allprojects')->name('projects');
 Route::get('/projects', 'ProjectController@index')->name('projects');
-Route::get('/project/store', 'ProjectController@store')->name('projectStore');
+Route::post('/project/store', 'ProjectController@store')->name('projectStore');
+Route::get('/project/create', 'ProjectController@create')->name('projectCreate');
 
 // Gallery
 Route::get('/gallery', 'GallaryController@index')->name('gallery');
-Route::get('/gallery/store', 'GallaryController@store');
+Route::post('/gallery/store', 'GallaryController@store')->name('galleryStore');
+Route::get('/gallery/create', 'GallaryController@create')->name('galleryCreate');
 
 // Service
 Route::get('/service', 'ServiceController@getServices')->name('service');
+Route::get('/service/create', 'ServiceController@create')->name('serviceCreate');
+Route::post('/service/store', 'ServiceController@store')->name('serviceStore');
 
 
 // Menu
 Route::get('/menus', 'MenuController@index')->name('menus');
-Route::get('/menu/store', 'MenuController@store')->name('menustore');
+Route::post('/menu/store', 'MenuController@store')->name('menuStore');
+Route::get('menu/create', 'MenuController@create')->name('menuCreate');
 
 // submenu
-Route::get('/submenu/store', 'SubmenuController@store');
+Route::post('/submenu/store', 'SubmenuController@store')->name("submenuStore");
 Route::get('/submenus', 'SubmenuController@index')->name('submenus');
+Route::get('/submenu/create', 'SubmenuController@create')->name('submenuCreate');
 
 // Videos
-Route::get('/videos', 'VideoController@index')->name('videos');
-Route::get('video/store', 'VideoController@store');
+Route::get('/video', 'VideoController@index')->name('video');
+Route::post('video/store', 'VideoController@store')->name('videoStore');
+Route::get('/video/create', 'VideoController@create')->name('videoCreate');
 
 // User
 Route::get('/users', 'UserController@index')->name('users');
-
+Route::get('/user/{user}/verify', 'UserController@getVerify')->name('verifyUserForm');
+Route::post('/user/verify', 'UserController@verify')->name('userVerify');
 // Roles 
 // Route::get('/role/store', 'RoleController@store');
 

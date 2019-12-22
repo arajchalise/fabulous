@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Client;
+use Auth;
 
 class ClientController extends Controller
 {
     public function index()
     {
         $clients = Client::all();
-        return $clients;
+        return $clients; 
     }
     public function allclients()
     {
@@ -44,13 +45,18 @@ class ClientController extends Controller
                         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return Client::create([
-            'name' => 'ABC Enterprises',
-            'logo' => 'logo.png',
-            'department_id' => 1
-        ]);
+        $file = $request->file('photo');
+            $name = str_replace(" ", "_", $request->name);
+            $ext = $file->getClientOriginalExtension();
+            if ($file->move("images/", $name.".".$ext)){
+                return Client::create([
+                    'name' => $name,
+                    'logo' => $name.".".$ext,
+                    'department_id' => Auth::user()->department_id
+                ]);
+            }
     }
 
 

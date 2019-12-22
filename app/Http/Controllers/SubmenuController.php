@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Submenu;
 use Illuminate\Http\Request;
+use App\Menu;
 
 class SubmenuController extends Controller
 {
@@ -25,7 +26,8 @@ class SubmenuController extends Controller
      */
     public function create()
     {
-        //
+        $menus = Menu::all();
+        return view('Submenus.create', ['menus' => $menus]);
     }
 
     /**
@@ -37,9 +39,9 @@ class SubmenuController extends Controller
     public function store(Request $request)
     {
         return Submenu::create([
-            'submenu_name' => 'App Development',
-            'url' => '/service/app_development',
-            'menu_id' => 2
+            'submenu_name' => $request->name,
+            'url' => $request->url,
+            'menu_id' => $request->mid
         ]);
     }
 
