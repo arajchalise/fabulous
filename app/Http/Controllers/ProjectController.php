@@ -11,10 +11,20 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects =  Project::with('department')
+        if (Auth::check()) {
+            $projects =  Project::where('department_id', Auth::user()->department_id)
+                             ->with('department')
                              ->with('client')->get();
-        // return $projects;
-        return view('Projects.index', ['projects' => $projects]);
+            return view('Projects.index', ['projects' => $projects]);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function getProjects()
+    {
+        $projects = Project::orderBy('id', 'DESC')->paginate(9);
+        return view('project', ['projects' => $projects]);
     }
 
     public function show(Project $project)
@@ -24,8 +34,23 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $clients = Client::all();
-        return view('Projects.create', ['clients' => $clients]);
+        if (Auth::check()) {
+                    $clients = Client::where('department_id', Auth::user()->department_id)->get();
+                    return view('Projects.create', ['clients' => $clients]);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function edit(Project $project)
+    {
+        if (Auth::check()) {
+            $Project = Project::find($project->id);
+            return view('Projects.edit', ['project' => $Project]);
+        
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function store(Request $request)
@@ -33,26 +58,48 @@ class ProjectController extends Controller
         $file = $request->file('photo');
         $name = str_replace(" ", "_", $request->pname);
         $ext = $file->getClientOriginalExtension();
-        if($file->move('/projectImages', $name.".".$ext)){
-            return Project::create([
+        if($file->move('images/projectImages', $name.".".$ext)){
+            if(Project::create([
                 'name' => $request->pname,
                 'description' => $request->description,
                 'photo' => $name.".".$ext,
                 'client_id' => $request->cid,
                 'department_id' => Auth::user()->department_id
-            ]);
+            ])){
+                return redirect()->route('projects');
+            } else {
+                return "Error storing value";
+            }
 
         }
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        return Project::where('id', '=', $request->id)
-                        ->update([]);
+        if( Project::where('id', $request->id)
+                        ->update([
+                            'name' => $request->pname,
+                            'description' => $request->description
+                        ])){
+            return redirect()->route('projects');
+        }
+        return "Error updating data";
+            
     }
 
     public function destroy($id)
     {
-        return Project::where('id', '=', $id)->delete();
+        if (Auth::check()) {
+            $project = Project::find($id);
+            if(unlink('images/projectImages/'.$project->photo)){
+                Project::where('id', '=', $id)->delete();
+                    return redirect()->route('projects');
+             
+            } else {
+                return "Error Deleteing project";
+            }
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

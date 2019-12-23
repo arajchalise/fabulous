@@ -8,9 +8,12 @@ use Auth;
 
 class ServiceController extends Controller
 {
+    
     public function index()
     {
-        return Service::with('department')->get();
+        $services = Service::with('department')->get();
+        //return $services;
+        return view('services', ['services' => $services]);
     }
 
     public function show(Service $service)
@@ -20,32 +23,66 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return view('Services.create');
+        if (Auth::check()) {
+            return view('Services.create');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function edit(Service $service)
     {
-        $serv = Service::find($service->id);
-        return view('Services.edit', ['serv' => $serv]);
+        if (Auth::check()) {
+            $serv = Service::find($service->id);
+            return view('Services.edit', ['serv' => $serv]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function store(Request $request)
     {
-        return Service::create([
+        if( Service::create([
             'type_of_service' => $request->name,
             'description' => $request->description,
             'department_id' => Auth::user()->department_id
-        ]);
+        ])){
+            return redirect()->route('service');
+        }
+        return "Error";
+    }
+
+    public function update(Request $request)
+    {
+        if (Service::where('id', $request->id)->update([
+                'type_of_service' => $request->name,
+                'description' => $request->description
+        ])) {
+            return redirect()->route('service');
+        }
+        return "Error";
     }
 
     public function destroy($id)
     {
-        return Service::where('id', '=', $id)->delete();
+        if (Auth::check()) {
+            if(Service::where('id', '=', $id)->delete()){
+            return redirect()->route('service');
+        }
+        return "Error";
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function getServices()
     {
-        $services = Service::all();
-        return view('Services.index', ['services' => $services]);
+        if (Auth::check()) {
+           $services = Service::where('department_id', Auth::user()->department_id)
+                            ->get();
+            return view('Services.index', ['services' => $services]); 
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

@@ -20,7 +20,7 @@
         <a class="nav-link" href="{{ route('gallary') }}" style="color:white;">Gallery</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" style="color:white;">Project</a>
+        <a class="nav-link" href="{{ route('allProjects') }}" style="color:white;">Project</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('blog') }}" style="color:white;">Blog</a>

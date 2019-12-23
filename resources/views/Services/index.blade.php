@@ -5,7 +5,7 @@
 <table class="table">
     <thead>
     <tr>
-      <th scope="col">Project Name</th>
+      <th scope="col">Type of Service</th>
       <th scope="col">Description</th>
       <th scope="col">Department</th>
       <th scope="col">Action</th>

@@ -15,7 +15,7 @@
     @foreach($clients as $client)
         <tr>
             <td>{{ $client->name }}</td>
-            <td>{{ $client->logo }}</td>
+            <td><img src="{{ asset('images/clientImages') }}/{{ $client->logo }}" style="width: 70px;"></td>
             <td>{{ $client->department->name }}</td>
             <td><a href="/client/{{ $client->id }}/edit">Edit</a><a href="/client/{{ $client->id }}/destroy">Delete</a></td>
         </tr>

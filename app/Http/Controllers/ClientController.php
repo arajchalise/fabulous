@@ -15,9 +15,16 @@ class ClientController extends Controller
     }
     public function allclients()
     {
-        $clients = Client::with('department')->with('project')->get();
+       if (Auth::check()) {
+            $clients = Client::where('department_id', Auth::user()->department_id)
+                            ->with('department')
+                            ->with('project')
+                            ->get();
         return view('Clients.index', ['clients' => $clients]);
-        //return $clients;
+       } else {
+        return redirect()->route('login');
+       }
+        
     }
 
     public function show(Client $client)
@@ -27,22 +34,32 @@ class ClientController extends Controller
 
     public function create()
     {
-        return view('Clients.create');
+        if(Auth::check()){
+            return view('Clients.create');
+        } else{
+            return redirect()->route('login');
+        }
     }
 
     public function edit(Client $client)
     {
-        $client = Client::find($client->id);
-        return view('Client.edit', ['client' => $client]);
+        if (Auth::check()) {
+            $client = Client::find($client->id);
+            return view('Clients.edit', ['client' => $client]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        return Client::where('id', '=', $request->id)
+        if(Client::where('id', '=', $request->id)
                         ->update([
-                            'name' => 'ABC Enterprises',
-                            'logo' => 'abc.png'
-                        ]);
+                            'name' => $request->name
+                        ])){
+            return redirect()->route('clients');
+        } 
+        return "Error Updating Detail";
     }
 
     public function store(Request $request)
@@ -50,18 +67,33 @@ class ClientController extends Controller
         $file = $request->file('photo');
             $name = str_replace(" ", "_", $request->name);
             $ext = $file->getClientOriginalExtension();
-            if ($file->move("images/", $name.".".$ext)){
-                return Client::create([
-                    'name' => $name,
+            if ($file->move("images/clientImages", $name.".".$ext)){
+                if( Client::create([
+                    'name' => $request->name,
                     'logo' => $name.".".$ext,
                     'department_id' => Auth::user()->department_id
-                ]);
-            }
+                ])){
+                    return redirect()->route('clients');
+                } else {
+                    unlink('images/'.$name.".".$ext);
+                    return "Error Storing values";
+                }
+            } 
+            return "Error Uploading file";
     }
 
 
     public function destroy($id)
     {
-        return Client::where('id', '=', $id)->delete();
+        if (Auth::check()) {
+            $client = Client::find($id);
+            if(unlink( 'images/clientImages'.$client->logo)){
+                Client::where('id', '=', $id)->delete();
+                return redirect()->route('clients');
+            }
+        return "Error";
+        } else {
+
+        }
     }
 }

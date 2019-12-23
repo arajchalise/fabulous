@@ -1,8 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: 'textarea'
+      });
+    </script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/style.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>tinymce.init({selector:'textarea'});</script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
@@ -18,8 +26,7 @@
 })    
     
 </script>
-
-
+</head>
 <div id="throbber" style="display:none; min-height:120px;"></div>
 <div id="noty-holder"></div>
 <div id="wrapper">
@@ -73,6 +80,12 @@
                 </li>
                 <li>
                     <a href="{{ route('video') }}" style="text-align: center;">Video</a>
+                </li> 
+                <li>
+                    <a href="{{ route('blogs') }}" style="text-align: center;">Blog</a>
+                </li>
+                <li>
+                    <a href="{{ route('getContacts') }}" style="text-align: center;">Contacts</a>
                 </li>   
             </ul>
         </div>

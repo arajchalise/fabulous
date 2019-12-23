@@ -18,10 +18,10 @@
         <tr>
             <td>{{ $project->name }}</td>
             <td>{!! $project->description !!}</td>
-            <td><img src="{{ asset('images') }}/{{ $project->photo }}"></td>
+            <td><img src="{{ asset('images/projectImages') }}/{{ $project->photo }}" style="width: 80px;"></td>
             <td>{{ $project->client->name }}</td>
             <td>{{ $project->department->name }}</td>
-            <td><a href="/client/{{ $project->id }}/edit">Edit</a><a href="/client/{{ $project->id }}/destroy">Delete</a></td>
+            <td><a href="/project/{{ $project->id }}/edit">Edit</a><a href="/project/{{ $project->id }}/destroy">Delete</a></td>
         </tr>
     @endforeach
     </tbody>

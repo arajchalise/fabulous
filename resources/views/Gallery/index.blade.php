@@ -13,7 +13,7 @@
   <tbody>
     @foreach($galleries as $gallery)
         <tr>
-          <td><img src="{{asset('galleryImages')}}/{{ $gallery->photo }}" style="width: 80px; height: 80px;" /></td>
+          <td><img src="{{ asset('images/galleryImages') }}/{{ $gallery->photo }}" style="width: 80px; height: 80px;" /></td>
             <td>{{ $gallery->caption }}</td>
             <td><a href="/gallery/{{ $gallery->id }}/edit">Edit</a><a href="/gallery/{{ $gallery->id }}/destroy">Delete</a></td>
         </tr>

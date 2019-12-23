@@ -30,13 +30,16 @@
       
   </style>
   <body style="margin-top: 0px;">
-   
+   <div style="background: rgba(0, 0, 0, 0.7); width: 100%; display: none;">
+     <img src="" id="img" style="display: none;width: 90%; z-index: 5000; margin-left: auto; margin-right: auto;">
+     <a onclick="hideImage()" style="position: absolute; z-index: 6000;">Close</a>
+   </div>
      <!-- Nav Bar  -->
 
     @include('includes/header')
    <!-- End of Nav Bar -->
 <div class="blog">
-  <h1 style="color: white; padding-top: 100px" class="text-center"><b>IT Services</b></h1>
+  <h1 style="color: white; padding-top: 100px" class="text-center"><b>Gallery</b></h1>
 </div>
 
 <div class="container-fluid">
@@ -45,30 +48,15 @@
   <div class="col-md-12">
 
     <div id="mdb-lightbox-ui"></div>
-
     <div class="mdb-lightbox">
         <div class="row pt-3 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">
-                <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" class="img-fluid">
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg" data-size="      1600x1067">
-                    <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(150).jpg" class="img-fluid" />
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg" data-size="      1600x1067">
-                    <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(152).jpg" class="img-fluid" />
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg" data-size="       1600x1067">
-                    <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(42).jpg" class="img-fluid" />
-                </a>
-            </div>
+              @foreach($galleries as $gallery)
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <a href="#">
+                      <img alt="{{ $gallery->caption }}" src="{{ asset('images/galleryImages') }}/{{ $gallery->photo }}" class="img-fluid" />
+                  </a>
+                </div>
+              @endforeach
         </div>
 
       <!--<figure class="col-md-4">
@@ -89,6 +77,12 @@
 </div>
 
 <!-- Footer  -->
-  
+  <script type="text/javascript">
+    function showImage(image) {
+      var name = "{{asset('images/galleryImages/')}}"+"/"+image;
+      document.getElementById('img').src = name;
+      document.getElementById('img').style.display = 'block';
+    }
+  </script>
 @include('includes.footer')
 <!-- Foote End -->

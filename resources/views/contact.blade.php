@@ -79,8 +79,8 @@
   </div>
   <div class="row">
     <div class="col-lg-6 col-sm-12 col-md-6  mt-5">
-      <form>
-        
+      <form method="POST" action="{{route('contactStore')}}">
+        {{ csrf_field() }}
         <div class="form-group">
           <input type="text" name="name" placeholder="Full Name" class="form-control" required="">
         </div>
@@ -97,7 +97,7 @@
           <textarea class="form-control" required="" name="message">Your Message Please!!!</textarea>
         </div>
 
-        <button class="btn btn-outline-danger mb-3 mt-3">Submit</button>
+        <input type="submit" value="Submit" class="btn btn-outline-danger mb-3 mt-3">
       </form>
 
     </div>

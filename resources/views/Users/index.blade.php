@@ -1,7 +1,7 @@
 @extends('layouts.admin_header')
 
 @section('content')
-<a href="{{ route('clientCreate') }}">Add New</a>
+@if(Auth::user()->role->name != 'Unverified')
 <table class="table">
     <thead>
     <tr>
@@ -20,12 +20,17 @@
             <td>{{ $user->department->name }}</td>
             <td>{{ $user->role->name }}</td>
             <td>
-              @if($user->role->name == 'Unverified')<a href="/user/{{ $user->id }}/verify">Verify</a>@endif
-              <a href="/user/{{ $user->id }}/edit">Edit</a>
-              <a href="/user/{{ $user->id }}/destroy">Delete</a>
+              @if(Auth::user()->role->name == 'Admin')
+                @if($user->role->name == 'Unverified')<a href="/user/{{ $user->id }}/verify">Verify</a>@endif
+              @endif
+              @if($user->id == Auth::user()->id)<a href="{{ route('userEdit') }}">Edit</a>@endif
+              @if($user->id != Auth::user()->id)<a href="/user/{{ $user->id }}/destroy">Delete</a>@endif
             </td>
         </tr>
     @endforeach
     </tbody>
 </table>
+@else
+<p>You are not verified yet, Please logged yourself out</p>
+@endif
 @endsection

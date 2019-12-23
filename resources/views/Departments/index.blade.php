@@ -1,6 +1,6 @@
 @extends('layouts.admin_header')
 @section('content')
-<a href="{{ route('clientCreate') }}">Add New</a>
+<a href="{{ route('createDepartment') }}">Add New</a>
 <table class="table">
     <thead>
     <tr>
@@ -14,7 +14,7 @@
     <tr>
         <td>{{ $department->name }}</td>
         <td>{{ $department->description }}</td>
-        <td><a>Edit</a><a>Delete</a></td>
+        <td><a href="/department/{{ $department->id}}/edit">Edit</a><a href="/department/{{ $department->id}}/destroy">Delete</a></td>
     </tr>
     @endforeach
      </tbody>

@@ -15,7 +15,9 @@
         <tr>
             <td>{{ $video->id }}</td>
             <td>{{ $video->video }}</td>
-            <td><a href="/video/{{ $video->id }}/edit">Edit</a><a href="/video/{{ $video->id }}/destroy">Delete</a></td>
+            <td>
+              <a href="/video/{{ $video->id }}/destroy">Delete</a>
+            </td>
         </tr>
     @endforeach
     </tbody>

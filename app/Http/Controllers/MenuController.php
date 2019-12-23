@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use Illuminate\Http\Request;
+use Auth;
 
 class MenuController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +16,12 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
-        return view('Menus.index', ['menus' => $menus]);
+        if (Auth::check()) {
+            $menus = Menu::all();
+            return view('Menus.index', ['menus' => $menus]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -25,7 +31,11 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('Menus.create');
+        if (Auth::check()) {
+            return view('Menus.create');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -36,10 +46,13 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        return Menu::create([
+        if( Menu::create([
             'menu_name' => $request->name,
             'url' => $request->url
-        ]);
+        ])){
+            return redirect()->route('menus');
+        }
+        return "Error";
     }
 
     /**
@@ -61,7 +74,12 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        //
+        if (Auth::check()) {
+            $menu = Menu::find($menu->id);
+            return view('Menus.edit', ['menu' => $menu]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -71,9 +89,15 @@ class MenuController extends Controller
      * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request)
     {
-        //
+        if (Menu::where('id', $request->id)->update([
+            'menu_name' => $request->name,
+            'url' => $request->url
+        ])) {
+            return redirect()->route('menus');
+        }
+        return "Error";
     }
 
     /**
@@ -82,8 +106,17 @@ class MenuController extends Controller
      * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
+    public function destroy($id)
     {
-        //
+        
+
+        if (Auth::check()) {
+            if (Menu::where('id', $id)->delete()) {
+                return redirect()->route('menus');
+            }
+            return "Error";
+        } else {
+            return redirect()->route('login');
+        }
     }
 }
