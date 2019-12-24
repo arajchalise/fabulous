@@ -30,6 +30,12 @@
     }   
   </style>
   <body style="margin-top: 0px;">
+    @if(Session::has('message'))
+      <script type="text/javascript">
+        alert("{{ Session::get('message') }}");
+      </script>
+      {{ Session::forget('message') }}
+    @endif
   <!-- Nav Bar  -->
 
     @include('includes/header')
@@ -61,27 +67,28 @@
 
       <div class="col-lg-4 col-md-4 col-sm-12" style="border: 1px solid" >
         <h4 style="color: maroon" align="center" class="pt-4"><b>Drop Your CV</b></h4>
-        <form class="pt-3 pb-3">
+        <form class="pt-3 pb-3" method="POST" action="{{ route('storeCandidate') }}" enctype='multipart/form-data'>
+          {{ csrf_field() }}
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Enter Your Name">
           </div><br>
           <div class="form-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email" name="email">
           </div><br>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your address">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your address" name="address">
           </div><br>
 
           <div class="form-group">
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Phone">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Phone" name="phone">
           </div><br>
           
           <div class="form-group">
             <label for="exampleFormControlFile1">Browse</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
           </div><br>
-          <button type="submit" class="btn btn-success btn">Submit</button>
+          <input type="submit" class="btn btn-success btn" value="Submit">
         </form>
       </div>
 

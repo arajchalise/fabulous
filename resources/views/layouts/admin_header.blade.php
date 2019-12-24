@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!--  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
       tinymce.init({
         selector: 'textarea'
       });
-    </script>
+    </script> -->
+<script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/style.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -86,6 +87,9 @@
                 </li>
                 <li>
                     <a href="{{ route('getContacts') }}" style="text-align: center;">Contacts</a>
+                </li>
+                <li>
+                    <a href="{{ route('careers') }}" style="text-align: center;">Career</a>
                 </li>   
             </ul>
         </div>

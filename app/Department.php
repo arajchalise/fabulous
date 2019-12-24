@@ -25,4 +25,9 @@ class Department extends Model
     {
         return $this->hasMany('App\Service');
     }
+
+    public function career()
+    {
+        return $this->hasMany('App\Career');
+    }
 }

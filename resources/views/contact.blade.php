@@ -58,6 +58,12 @@
       
   </style>
   <body style="margin-top: 0px;">
+    @if(Session::has('message'))
+      <script type="text/javascript">
+        alert("{{ Session::get('message') }}");
+      </script>
+      {{ Session::forget('message') }}
+    @endif
      <!-- Nav Bar  -->
 
     @include('includes/header')

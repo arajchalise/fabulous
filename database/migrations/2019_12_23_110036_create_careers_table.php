@@ -15,7 +15,12 @@ class CreateCareersTable extends Migration
     {
         Schema::create('careers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('position');
+            $table->text('description');
+            $table->unsignedBigInteger('department_id');
             $table->timestamps();
+
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 

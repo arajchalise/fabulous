@@ -23,6 +23,7 @@ class ContactController extends Controller
             'company' => $request->company,
             'message' => $request->message
         ])){
+            $request->session()->put('message', 'Your Request has been sent to the respective person, We will get you soon');
             return redirect()->route('contact');
         }
     }

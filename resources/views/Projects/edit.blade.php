@@ -12,11 +12,17 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="clientsName" class="col-sm-2 col-form-label">Projects Name</label>
+            <label for="clientsName" class="col-sm-2 col-form-label">Projects Description</label>
             <div class="col-sm-10">
-            <textarea name="description" rows="17">{{ $project->description }}</textarea>
+            <textarea name="description" id="editor">{{ $project->description }}</textarea>
             </div>
         </div>
         <input type="submit" name="" value="Store"  class="btn btn-success" />
     </form>
+    <script>
+    CKEDITOR.replace('editor', {
+      height: 400,
+      baseFloatZIndex: 10005
+    });
+  </script>
 @endsection

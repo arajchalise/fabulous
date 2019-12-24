@@ -4,9 +4,7 @@ Route::get('/', 'WelcomeController@index')->name('welcome');
 
 Route::get('/services', 'ServiceController@index')->name('services');
 
-Route::get('/career', function(){
-    return view('career');
-})->name('career');
+Route::get('/career', 'CareerController@getCareer')->name('career');
 
 Route::get('/galleries', 'GallaryController@getGallary')->name('gallary');
 
@@ -111,4 +109,19 @@ Route::get('blog/{id}/destroy', 'BlogController@destroy');
 Route::get('/contacts', 'ContactController@index')->name('getContacts');
 Route::post('/contact/store', 'ContactController@store')->name('contactStore');
 
+
+// Career
+Route::get('/vacancy', 'CareerController@index')->name('careers');
+Route::get('/career/create', 'CareerController@create')->name('createCareer');
+Route::post('/career/store', 'CareerController@store')->name('storeCareer');
+Route::get('/career/{career}', 'CareerController@show');
+
+// Candidate
+Route::post('/candidate/store', 'CandidateController@store')->name('storeCandidate');
+
+
+Route::post('/ckeditor/upload', 'CKController@upload');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+
