@@ -40,7 +40,7 @@ class GallaryController extends Controller
 
     public function edit(Gallary $gallary)
     {
-        if (condition) {
+        if (Auth::check()) {
             $gallary = Gallary::find($gallary->id);
             return view('Gallery.edit', ['gallery' => $gallary]); 
         } else {

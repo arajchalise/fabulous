@@ -1,6 +1,6 @@
 @extends('layouts.admin_header')
 @section('content')
-<a href="{{ route('createCareer') }}">Add New</a>
+<a href="{{ route('createCareer') }}"class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add New</a>
 <table class="table">
     <thead>
     <tr>
@@ -17,9 +17,9 @@
         <td>{{ $career->description }}</td>
         <td>{{ $career->department->name }}</td>
         <td>
-          <a href="/career/{{ $career->id }}">View</a>
-          <a href="/career/{{ $career->id}}/edit">Edit</a>
-          <a href="/career/{{ $career->id}}/destroy">Delete</a>
+          <a href="/career/{{ $career->id }}"class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i> View</a>
+          <a href="/career/{{ $career->id}}/edit"class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+          <a href="/career/{{ $career->id}}/destroy"class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>
         </td>
     </tr>
     @endforeach

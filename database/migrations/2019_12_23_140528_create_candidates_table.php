@@ -20,6 +20,7 @@ class CreateCandidatesTable extends Migration
             $table->string('address');
             $table->string('phone')->unique();
             $table->string('cv');
+            $table->integer('status');
             $table->unsignedBigInteger('career_id');
             $table->timestamps();
 

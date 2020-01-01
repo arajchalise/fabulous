@@ -27,6 +27,7 @@
 })    
     
 </script>
+<title>Fabulous IT-Admin Panel</title>
 </head>
 <div id="throbber" style="display:none; min-height:120px;"></div>
 <div id="noty-holder"></div>

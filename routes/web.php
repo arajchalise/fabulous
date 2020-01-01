@@ -86,6 +86,7 @@ Route::get('/video', 'VideoController@index')->name('video');
 Route::post('video/store', 'VideoController@store')->name('videoStore');
 Route::get('/video/create', 'VideoController@create')->name('videoCreate');
 Route::get('/video/{id}/destroy', 'VideoController@destroy');
+Route::get('/video/{video}/edit', 'VideoController@edit');
 
 // User
 Route::get('/users', 'UserController@index')->name('users');
@@ -100,14 +101,16 @@ Route::get('/user/{id}/destroy', 'UserController@destroy');
 // Blogs
 Route::get('/blogs', 'BlogController@index')->name('blogs');
 Route::get('/blog/create', 'BlogController@create')->name('createBlog');
-Route::get('blog/{blog}/edit', 'BlogController@edit');
-Route::post('blog/store', 'BlogController@store')->name('storeBlog');
-Route::post('blog/update', 'BlogController@update')->name('blogUpdate');
-Route::get('blog/{id}/destroy', 'BlogController@destroy');
+Route::get('/blog/{blog}/edit', 'BlogController@edit');
+Route::post('/blog/store', 'BlogController@store')->name('storeBlog');
+Route::post('/blog/update', 'BlogController@update')->name('blogUpdate');
+Route::get('/blog/{id}/destroy', 'BlogController@destroy');
+Route::get('/blog/{blog}', 'BlogController@show');
 
 // Contact
 Route::get('/contacts', 'ContactController@index')->name('getContacts');
 Route::post('/contact/store', 'ContactController@store')->name('contactStore');
+Route::post('/contact/{contact}/sendEmail', 'ContactController@sendEmail');
 
 
 // Career
@@ -115,6 +118,8 @@ Route::get('/vacancy', 'CareerController@index')->name('careers');
 Route::get('/career/create', 'CareerController@create')->name('createCareer');
 Route::post('/career/store', 'CareerController@store')->name('storeCareer');
 Route::get('/career/{career}', 'CareerController@show');
+Route::get('/career/{career}/edit', 'CareerController@edit');
+Route::post('/career/update', 'CareerController@update')->name('updateCareer');
 
 // Candidate
 Route::post('/candidate/store', 'CandidateController@store')->name('storeCandidate');

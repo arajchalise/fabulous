@@ -8,7 +8,13 @@ class CKController extends Controller
 {
     public function upload(Request $request)
     {
-       echo "<script> alert(".$request->file('upload')->getClientsOriginalName();.");</script>";
-
+        $file = $request->file('upload');
+        $name = $file->getClientOriginalName();
+       if($file->move("images/CKUploads", $name)){
+        $url = '/images/CKUploads/'.$name;
+        $function_number = $_GET['CKEditorFuncNum'];
+        $message = "";
+             echo "<script>window.parent.CKEDITOR.tools.callFunction($function_number, '$url', '$message');</script>";
+       }
     }
 }

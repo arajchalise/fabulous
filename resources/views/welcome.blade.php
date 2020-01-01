@@ -1,3 +1,8 @@
+@if(Auth::check())
+  <div style="width: 100%; background: #000; min-height: 40px;">
+    <span style="color: #fff; margin-left: 10%;">Hey, {{ Auth::user()->name}} done here ?? <a href="{{ route('home')}}" style="color: #fff">Go to Dashboard</a></span>
+  </div>
+@endif
 @include('includes.head')
   <style type="text/css">
       .itback{

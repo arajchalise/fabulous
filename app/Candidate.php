@@ -12,6 +12,7 @@ class Candidate extends Model
         'address',
         'phone',
         'cv',
+        'status',
         'career_id'
     ];
 

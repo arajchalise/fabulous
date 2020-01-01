@@ -28,6 +28,7 @@ class BlogController extends Controller
         return view('blog', ['blogs' => $blogs]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -73,7 +74,7 @@ class BlogController extends Controller
     public function show(Blog $blog)
     {
         $blog = Blog::find($blog->id);
-        return $blog;
+        return view('showBlog', ['blog' => $blog]);
     }
 
     /**

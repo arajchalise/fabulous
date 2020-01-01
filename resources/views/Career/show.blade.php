@@ -7,9 +7,9 @@
     <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Email</th>
+      <th scope="col"><i class="glyphicon glyphicon-envelope"></i> Email</th>
       <th scope="col">Address</th>
-      <th scope="col">Phone</th>
+      <th scope="col"><i class="glyphicon glyphicon-phone"></i> Phone</th>
       <th scope="col">CV</th>
     </tr>
   </thead>
@@ -20,7 +20,7 @@
             <td>{{ $c->email }}</td>
             <td>{{ $c->address }}</td>
             <td>{{ $c->phone }}</td>
-           <td><a href="{{ asset('/candidateCv') }}/{{ $c->cv }}">{{ $c->cv }}</a></td>
+           <td><a href="{{ asset('/candidateCv') }}/{{ $c->cv }}" target="_blank"><img src="{{ asset('images/pdf.png') }}" style="width: 40px;"></a></td>
         </tr>
     @endforeach
     </tbody>

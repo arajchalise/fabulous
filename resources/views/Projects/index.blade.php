@@ -1,7 +1,7 @@
 @extends('layouts.admin_header')
 
 @section('content')
-<a href="{{ route('projectCreate') }}">Add New</a>
+<a href="{{ route('projectCreate') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add New</a>
 <table class="table">
     <thead>
     <tr>
@@ -21,7 +21,10 @@
             <td><img src="{{ asset('images/projectImages') }}/{{ $project->photo }}" style="width: 80px;"></td>
             <td>{{ $project->client->name }}</td>
             <td>{{ $project->department->name }}</td>
-            <td><a href="/project/{{ $project->id }}/edit">Edit</a><a href="/project/{{ $project->id }}/destroy">Delete</a></td>
+            <td>
+              <a href="{{ route('allProjects') }}" class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i> View As</a>
+              <a href="/project/{{ $project->id }}/edit" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+              <a href="/project/{{ $project->id }}/destroy" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a></td>
         </tr>
     @endforeach
     </tbody>

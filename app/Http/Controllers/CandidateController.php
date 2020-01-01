@@ -20,7 +20,8 @@ class CandidateController extends Controller
                 'address' => $request->address,
                 'phone' => $request->phone,
                 'cv' => $name.".".$ext,
-                'career_id' => 1
+                'career_id' => 1,
+                'status' => 0
             ])){
                 $request->session()->put('message', 'Your application is sent, We will get back to you asap');
                 return redirect()->route('career');

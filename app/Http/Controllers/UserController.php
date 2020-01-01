@@ -40,10 +40,11 @@ class UserController extends Controller
     public function verify(Request $request)
     {
         $id = $request->id;
-        return User::where('id', $id)->update([
+         User::where('id', $id)->update([
             'department_id' => $request->did,
             'role_id' => $request->rid
-        ]);   
+        ]); 
+        return redirect()->route('users');  
     }
 
     public function edit()

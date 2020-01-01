@@ -1,3 +1,8 @@
+@if(Auth::check())
+  <div style="width: 100%; background: #000; min-height: 40px;">
+    <span style="color: #fff; margin-left: 10%;">Hey, {{ Auth::user()->name}} done here ?? <a href="{{ route('home')}}" style="color: #fff">Go to Dashboard</a></span>
+  </div>
+@endif
 @include('includes.head')
   <style type="text/css">
       .itback{
@@ -98,12 +103,7 @@
             <h1 class="pt-3"style="font-family:times-new-roman; color:white;">
     Electornics
    </h1>
-       <p style="color:white;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+       <p style="color:white;">{!! $service->description !!}</p>
      </div>
    </div>
    <div class="row">
@@ -126,12 +126,7 @@
    </h1>
    <div class="row">
      <div class="col-lg-8 col-md-8 col-sm-4 mt-3 "data-aos="fade-right" data-aos-duration="3000">
-       <p style="color:white;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+       <p style="color:white;">{!! $service->description !!}</p>
      </div>
       <div class="col-lg-4 col-md- col-sm-12">
         <img src="">

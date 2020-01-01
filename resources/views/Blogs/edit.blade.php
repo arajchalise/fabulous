@@ -18,10 +18,16 @@
         </div>    
         <input type="submit" name="" value="Update"  class="btn btn-success" />
     </form>
+    
     <script>
-    CKEDITOR.replace('editor', {
-      height: 400,
-      baseFloatZIndex: 10005
-    });
+         var options = {
+            filebrowserUploadUrl: '/ckeditor/upload',
+            filebrowserUploadMethod: 'form',
+            height: 400,
+            baseFloatZIndex: 10005
+        };
+    </script>
+    <script>
+    CKEDITOR.replace('editor', options);
   </script>
 @endsection

@@ -12,7 +12,7 @@ class VideoController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $videos =  Video::all();
+            $videos =  Video::orderBy('updated_at', 'DESC')->get();
             return view('Videos.index', ['videos' => $videos]);
         } 
         return redirect()->route('login');
@@ -25,6 +25,16 @@ class VideoController extends Controller
             return view('Videos.create');
         } 
         return redirect()->route('login');
+    }
+
+    public function edit(Video $video)
+    {
+        $video = Video::find($video->id);
+        if(Video::where('id', $video->id)->update([
+            'video' => $video->video
+        ])){
+            return redirect()->route('video');
+        }
     }
 
     public function store(Request $request)

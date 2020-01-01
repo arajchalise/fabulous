@@ -1,3 +1,8 @@
+@if(Auth::check())
+  <div style="width: 100%; background: #000; min-height: 40px;">
+    <span style="color: #fff; margin-left: 10%;">Hey, {{ Auth::user()->name}} done here ?? <a href="{{ route('home')}}" style="color: #fff">Go to Dashboard</a></span>
+  </div>
+@endif
 @include('includes.head')
   <style type="text/css">
         .footer{
@@ -45,8 +50,8 @@
               <img class="card-img-top" src="{{ asset('images/blogImages') }}/{{ $blogs[0]->photo }}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ $blogs[0]->title }}</h5>
-                <p class="card-text">{!! Str::limit($blogs[0]->description, 100) !!}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <!-- <p class="card-text">{!! Str::limit($blogs[0]->description, 100) !!}</p> -->
+                <a href="/blog/{{ $blogs[0]->id }}" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
           </div>
@@ -95,16 +100,18 @@
 
     <div class="row mt-5">
       @foreach($blogs as $blog)
-        <div class="col-lg-3">
-        <div class="card " style="width: 18rem;">
-          <img class="card-img-top" src="{{ asset('images/blogImages') }}/{{ $blog->photo }}" alt="{{ $blog->title }}">
-          <div class="card-body">
-            <h5 class="card-title">{{ $blog->title }}</h5>
-            <p class="card-text">{!! Str::limit($blog->description, 100) !!}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        @if(!$loop->first)
+            <div class="col-lg-3">
+            <div class="card " style="width: 18rem;">
+              <img class="card-img-top" src="{{ asset('images/blogImages') }}/{{ $blog->photo }}" alt="{{ $blog->title }}">
+             <div class="card-body">
+              <h5 class="card-title">{{ $blog->title }}</h5>
+              <p class="card-text">{!! Str::limit($blog->description, 100) !!}</p>
+              <a href="/blog/{{$blog->id}}" class="btn btn-primary">Go somewhere</a>
+            </div>
           </div>
-        </div>
-      </div>
+          </div>
+        @endif
       @endforeach
     </div>
 
