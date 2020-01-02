@@ -16,7 +16,11 @@ Route::get('/contact', function(){
 
 Route::get('/allprojects', 'ProjectController@getProjects')->name('allProjects');
 
-Auth::routes();
+Route::group(['prefix' => 'admin'], function () {
+
+    Auth::routes();
+
+});
 
 //departments
 Route::get('/alldepartments', 'DepartmentController@alldepartments')->name('departments');
@@ -128,5 +132,6 @@ Route::post('/candidate/store', 'CandidateController@store')->name('storeCandida
 Route::post('/ckeditor/upload', 'CKController@upload');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 

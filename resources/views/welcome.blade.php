@@ -109,7 +109,7 @@
           <div class="col-lg-4 col-sm-12 col-md-4"data-aos="fade-right"data-aos-duration="1500">
           <div class="row">
             <div class="col-lg-12 col-sm-12 col-md-12">
-              <p class="text-center"><i class="fa fa-leaf fa-5x"></i></p>
+              <p class="text-center"><img src="{{ asset('images') }}/{{ $department->name }}.png" style="width: 100px;"></p>
             </div>
           </div>
           <h3 class="text-center"style="font-family: times-new-roman">{{ $department->name }}</h3>

@@ -105,7 +105,7 @@
           <input type="text" name="company" placeholder="Company" class="form-control" required="">
         </div>
           <div class="form-group">
-          <textarea class="form-control" required="" name="message">Your Message Please!!!</textarea>
+          <textarea class="form-control" name="message" placeholder="Your Message Please!!!" required></textarea>
         </div>
 
         <input type="submit" value="Submit" class="btn btn-outline-danger mb-3 mt-3">

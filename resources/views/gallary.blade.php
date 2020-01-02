@@ -57,7 +57,7 @@
         <div class="row pt-3 pb-3">
               @foreach($galleries as $gallery)
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                  <a href="#">
+                  <a href="{{ asset('images/galleryImages') }}/{{ $gallery->photo }}" data-size="    1600x1067" style="display: block;">
                       <img alt="{{ $gallery->caption }}" src="{{ asset('images/galleryImages') }}/{{ $gallery->photo }}" class="img-fluid" />
                   </a>
                 </div>
