@@ -25,12 +25,7 @@
         width: 100%;
         background-size: cover;
         height: 300px;
-   }
-
-       
-      
-     
-      
+   }      
   </style>
   <body style="margin-top: 0px;">
      <!-- Nav Bar  -->
@@ -50,8 +45,8 @@
               <img class="card-img-top" src="{{ asset('images/blogImages') }}/{{ $blogs[0]->photo }}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ $blogs[0]->title }}</h5>
-                <!-- <p class="card-text">{!! Str::limit($blogs[0]->description, 100) !!}</p> -->
-                <a href="/blog/{{ $blogs[0]->id }}" class="btn btn-primary">Go somewhere</a>
+                <p class="card-text">{!! Str::limit($blogs[0]->description, 300) !!}</p>
+                <a href="/blog/{{ $blogs[0]->id }}" class="btn btn-primary">Read More</a>
               </div>
             </div>
           </div>
@@ -107,7 +102,7 @@
              <div class="card-body">
               <h5 class="card-title">{{ $blog->title }}</h5>
               <p class="card-text">{!! Str::limit($blog->description, 100) !!}</p>
-              <a href="/blog/{{$blog->id}}" class="btn btn-primary">Go somewhere</a>
+              <a href="/blog/{{$blog->id}}" class="btn btn-primary">Read More</a>
             </div>
           </div>
           </div>

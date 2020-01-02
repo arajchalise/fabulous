@@ -49,7 +49,7 @@
         <ul class="nav navbar-right top-nav">
             <li> <a>{{ Auth::user()->name }}</a></li>           
             <li><a href="#">
-                <form action="/logout" method="POST">
+                <form action="/admin/logout" method="POST">
                     {{ csrf_field() }}
                 <i class="fa fa-fw fa-power-off"></i> <input type="submit" value="Logout" style="border: none; background: none;"></form></a></li>
         </ul>

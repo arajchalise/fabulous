@@ -16,7 +16,7 @@
         <td>{{ $department->description }}</td>
         <td>
           <a href="/department/{{ $department->id}}/edit"class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-          <a href="/department/{{ $department->id}}/destroy"class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</a></td>
+          <a href="/department/{{ $department->id}}/destroy"class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a></td>
     </tr>
     @endforeach
      </tbody>
