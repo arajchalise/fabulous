@@ -17,7 +17,7 @@ class WelcomeController extends Controller
             DB::connection()->getPdo();
             $clients = Client::all();
             $departments = Department::where('name', '!=', 'Unassigned')->get();
-            $projects = Project::orderBy('id', 'DESC')->limit(6)->get();
+            $projects = Project::where('status', 0)->orderBy('updated_at', 'DESC')->limit(8)->get();
             $video = Video::latest('updated_at')->first();
 
             $data = ['clients' => $clients, 'departments' => $departments, 'projects' => $projects, 'video' => $video];

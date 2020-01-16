@@ -12,6 +12,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/style.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="icon" href="{{ asset('images/logo.png')}}" type="image/gif">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
@@ -47,6 +48,18 @@
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
+            <?php 
+              $v = new \App\Order(); 
+              $cats = $v ->getCounts(); 
+              $h = new \App\HoldOrder();
+              $hval = $h->getCounts();
+              $aval = $v ->getAppCounts();
+              $pval = $v->getPaidCounts();
+            ?>
+            <li><a href="{{ route('paidOrders') }}">Payment Review Request<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $pval }}</span></a></li>
+            <li><a href="{{ route('approvedOrders') }}">Approved Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $aval }}</span></a></li>
+            <li><a href="{{ route('suspendedOrders') }}">Suspended Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $hval }}</span></a></li>
+            <li><a href="{{ route('orders') }}">Tnx Review Request<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $cats }}</span></a></li>
             <li> <a>{{ Auth::user()->name }}</a></li>           
             <li><a href="#">
                 <form action="/admin/logout" method="POST">
@@ -91,6 +104,12 @@
                 </li>
                 <li>
                     <a href="{{ route('careers') }}" style="text-align: center;">Career</a>
+                </li>
+                <li>
+                    <a href="{{ route('categories') }}" style="text-align: center;">Category</a>
+                </li>  
+                 <li>
+                    <a href="{{ route('product') }}" style="text-align: center;">Products</a>
                 </li>   
             </ul>
         </div>

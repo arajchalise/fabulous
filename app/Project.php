@@ -11,7 +11,11 @@ class Project extends Model
         'description',
         'department_id',
         'client_id',
-        'photo'
+        'photo',
+        'location',
+        'type',
+        'system_used',
+        'status'
     ];
 
 

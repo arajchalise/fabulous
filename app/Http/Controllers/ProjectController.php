@@ -14,7 +14,8 @@ class ProjectController extends Controller
         if (Auth::check()) {
             $projects =  Project::where('department_id', Auth::user()->department_id)
                              ->with('department')
-                             ->with('client')->get();
+                             ->with('client')
+                             ->orderBy('updated_at', 'DESC')->get();
             return view('Projects.index', ['projects' => $projects]);
         } else {
             return redirect()->route('login');
@@ -29,7 +30,8 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        return Project::find($project->id);
+        $project =  Project::find($project->id);
+        return view('Projects.show', ['project' => $project]);
     }
 
     public function create()
@@ -64,7 +66,11 @@ class ProjectController extends Controller
                 'description' => $request->description,
                 'photo' => $name.".".$ext,
                 'client_id' => $request->cid,
-                'department_id' => Auth::user()->department_id
+                'department_id' => Auth::user()->department_id,
+                'location' => $request->location,
+                'type' => $request->type,
+                'system_used' => $request->system_used,
+                'status' => $request->status
             ])){
                 return redirect()->route('projects');
             } else {
@@ -79,7 +85,12 @@ class ProjectController extends Controller
         if( Project::where('id', $request->id)
                         ->update([
                             'name' => $request->pname,
-                            'description' => $request->description
+                            'description' => $request->description,
+                            'location' => $request->location,
+                            'type' => $request->type,
+                            'system_used' => $request->system_used,
+                            'status' => $request->status
+
                         ])){
             return redirect()->route('projects');
         }

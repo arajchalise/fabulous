@@ -15,12 +15,33 @@ Route::get('/contact', function(){
 })->name('contact');
 
 Route::get('/allprojects', 'ProjectController@getProjects')->name('allProjects');
+Route::get('/cart', function(){
+  return view('cart');
+})->name('cart');
+Route::get('/products', 'ProductController@index')->name('products');
 
 Route::group(['prefix' => 'admin'], function () {
 
     Auth::routes();
 
 });
+
+Route::prefix('client')->group(function() {
+  Route::get('/login','Auth\BuyerLoginController@showLoginForm')->name('client.login');
+  Route::post('/login', 'Auth\BuyerLoginController@login')->name('client.login.submit');
+  Route::get('/register', function(){
+    return view('auth.buyer_register');
+   });
+  Route::post('/register', 'Auth\BuyerRegisterController@create')->name('client.register.submit');
+  Route::get('logout/', 'Auth\BuyerLoginController@logout')->name('client.logout');
+  Route::get('/dashboard', 'BuyerController@index')->name('client.dashboard');
+  Route::get('/profile', 'BuyerController@profile')->name('client.profile');
+  Route::get('/orders', 'BuyerController@orders')->name('client.orders');
+  Route::get('/approvedOrders', 'BuyerController@approvedOrders')->name('client.approvedOrders');
+  Route::get('/pendingOrders', 'BuyerController@pendingOrders')->name('client.pendingOrders');
+  Route::get('/order/{{ tnx }}/view', 'BuyerController@view');
+
+  }) ;
 
 //departments
 Route::get('/alldepartments', 'DepartmentController@alldepartments')->name('departments');
@@ -51,6 +72,7 @@ Route::get('/project/create', 'ProjectController@create')->name('projectCreate')
 Route::get('/project/{id}/destroy', 'ProjectController@destroy');
 Route::get('/project/{project}/edit', 'ProjectController@edit');
 Route::post('/project/update', 'ProjectController@update')->name('projectUpdate');
+Route::get('/projects/{project}', 'ProjectController@show');
 
 // Gallery
 Route::get('/gallery', 'GallaryController@index')->name('gallery');
@@ -128,10 +150,42 @@ Route::post('/career/update', 'CareerController@update')->name('updateCareer');
 // Candidate
 Route::post('/candidate/store', 'CandidateController@store')->name('storeCandidate');
 
+// products
+Route::get('/product', 'ProductController@getProduct')->name('product');
+Route::get('/product/create', 'ProductController@create')->name('createProduct');
+Route::get('/product/{product}/edit', 'ProductController@edit');
+Route::post('/product/store', 'ProductController@store')->name('storeProduct');
+Route::post('/product/update', 'ProductController@update')->name('updateProduct');
+Route::post('/product/{id}/destroy', 'ProductController@destroy');
+Route::get('/products/{product}', 'ProductController@show');
+Route::get('/product/{q}', 'ProductController@getProductCategory');
 
+
+// categories
+Route::get('/categories', 'CategoryController@index')->name('categories');
+Route::get('/category/create', 'CategoryController@create')->name('categoryCreate');
+Route::post('/category/store', 'CategoryController@store')->name('categoryStore');
+Route::post('/category/update', 'CategoryController@update')->name('categoryUpdate');
+Route::get('/category/{category}/edit', 'CategoryController@edit');
+Route::get('/category/{id}/destroy', 'CategoryController@destroy');
+
+// Cart
+Route::post('/addToCart', 'ProductController@addToCart')->name('addToCart');
+Route::get('/removeCart/{id}', 'ProductController@removeCart');
+Route::post('/updateCart', 'ProductController@updateCart')->name('updateCart');
+Route::get('/checkout', 'BuyerController@checkout')->name('checkout');
+Route::post('/makeOrder', 'BuyerController@makeOrder')->name('makeOrder');
+
+// Orders
+Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orders/approved', 'OrderController@approved')->name('approvedOrders');
+Route::get('/orders/suspended', 'OrderController@suspended')->name('suspendedOrders');
+Route::get('/orders/paid', 'OrderController@paid')->name('paidOrders');
+Route::get('/orders/{tnx}', 'OrderController@showOrder');
+Route::get('/orders/{tnx}/verify', 'OrderController@verifyOrder');
+Route::post('/orders/hold', 'OrderController@holdOrder')->name('holdOrders');
+
+// CKEditor
 Route::post('/ckeditor/upload', 'CKController@upload');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-

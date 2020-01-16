@@ -80,6 +80,11 @@
         <li class="nav-item">
         <a class="nav-link" href="{{ route('contact') }}" style="color:white;">Contact</a>
       </li>
+
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ route('products') }}" style="color:white;">Shop Now</a>
+      </li>
      
     
     </ul>
@@ -149,19 +154,21 @@
     </div>
     <div class="container mt-5">
       
-  <div class="owl-carousel ml-3 ">
+  <div class="row">
       @foreach($data['projects'] as $project)
-           <div class="row">
-            <div class="item col-lg-4 col-sm-12 col-md-6">
-              <div class="card" style="width: 20rem; border: none;" >
+              <div class="item col-lg-3 col-sm-12 col-md-4" style="margin-bottom: 10px;">
+              <div class="card" style="width: 100%; border: none;" >
                 <img src="{{('images/projectImages')}}/{{ $project->photo }}" class="card-img-top" alt="{{ $project->name }}" height="250">
           
-          <div class="container-fluid" style="background-color:#730510; height:50px;">
-            <h5 class="text-center pt-2" style="color: white; font-family:times-new-roman;"><a href="/projects/{{ $project->id }}" style="color: white">{{ $project->name }}</a></h5>
+          <div class="container-fluid" style="background-color:#730510; min-height:50px;">
+            <h5 class="text-center pt-2" style="color: white; font-family:times-new-roman;"><a href="/projects/{{ $project->id }}" style="color: white">{{ Str::limit($project->name, 18) }}</a>
+            </h5>
+            <p style="color: #fff; font-family:times-new-roman; font-size: 17px;"><!-- <img src=" {{ asset('images/location.png') }} " style="width: 20px;"> --> {{ $project->location }}<br>
+              {{ $project->type }} <br> {{ $project->system_used }}
+            </p>
           </div>
         </div>
             </div>
-            </div> 
       @endforeach
   </div>
 
@@ -172,13 +179,13 @@
   </div>
   <div class="row">
   <div class="col-sm-12 col-md-4 col-lg-4 text-center mx-auto mb-5 mt-3">
-    <a class="btn btn-success" style="background-color:#730510;" href="{{ route('projects') }}">View more Project</a>
+    <a class="btn btn-success" style="background-color:#730510;" href="{{ route('allProjects') }}">View more Project</a>
   </div>
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" style="margin-bottom: 20px;">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-5">
      <h3 style="font-weight: bold;font-family: times-new-roman;">OUR <span style="color: #730510; font-family: times-new-roman;">CLIENTS</span></h3>
@@ -193,16 +200,11 @@
 
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
-  <div class="owl-carousel ml-3 mb-5">
+    <div class="row">
     @foreach($data['clients'] as $client)
-      <div class="item">
-        <div class="card" style="width: 19rem; ">
-          <img src="{{ asset('images/clientImages') }}/{{ $client->logo }}" class="card-img-top" alt="{{ $client->name }}" style="width: 100px;">
-          <div class="card-body">
-            <p class="card-text">{{ $client->name }}</p>
-          </div>
-        </div>
-      </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 " style="margin-bottom: 5px;">
+        <img src="{{ asset('images/clientImages') }}/{{ $client->logo }}" style="width: 100%; height: 100px;">
+       </div>
     @endforeach
     </div>
 </div>
@@ -211,11 +213,6 @@
 
 
   </div>
-
-
-</div>
-
-
 
 <div class="container-fluid itback">
   <div class="row">

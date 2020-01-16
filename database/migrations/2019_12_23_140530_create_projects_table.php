@@ -20,6 +20,10 @@ class CreateProjectsTable extends Migration
             $table->string('photo');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('client_id');
+            $table->string('location');
+            $table->string('type');
+            $table->string('system_used');
+            $table->integer('status');
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');

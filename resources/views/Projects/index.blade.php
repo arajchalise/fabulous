@@ -20,7 +20,10 @@
             <td>{!! $project->description !!}</td>
             <td><img src="{{ asset('images/projectImages') }}/{{ $project->photo }}" style="width: 80px;"></td>
             <td>{{ $project->client->name }}</td>
-            <td>{{ $project->department->name }}</td>
+            <td>@if($project->status == 0) Running
+                @else Completed
+                @endif
+            </td>
             <td>
               <a href="{{ route('allProjects') }}" class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i> View As</a>
               <a href="/project/{{ $project->id }}/edit" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</a>

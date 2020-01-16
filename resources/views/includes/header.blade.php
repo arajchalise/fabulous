@@ -28,6 +28,10 @@
         <li class="nav-item">
         <a class="nav-link" href="{{ route('contact') }}" style="color:white;">Contact</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('products') }}" style="color:white;">Shop Now</a>
+      </li>
      
     
     </ul>

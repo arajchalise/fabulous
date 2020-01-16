@@ -44,18 +44,21 @@
   <div class="container pt-5 pb-5">
     <div class="row">
       @foreach($projects as $project)
-        <div class="col-lg-4">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="{{ asset('images/projectImages') }}/{{ $project->photo }}" alt="Card image cap">
-          <div class="card-body">
-              <h5 class="card-title">{{ $project->name}}</h5>
-              <p class="card-text">{{ Str::limit($project->description, 100)}}</p>
-              <a href="#" class="card-link">Read More</a>
+            <div class="item col-lg-3 col-sm-12 col-md-4" style="margin-bottom: 10px;">
+              <div class="card" style="width: 100%; border: none;" >
+                <img src="{{('images/projectImages')}}/{{ $project->photo }}" class="card-img-top" alt="{{ $project->name }}" height="250">
+          
+          <div class="container-fluid" style="background-color:#730510; min-height:50px;">
+            <h5 class="text-center pt-2" style="color: white; font-family:times-new-roman;"><a href="/projects/{{ $project->id }}" style="color: white">{{ Str::limit($project->name, 18) }}</a>
+            </h5>
+            <p style="color: #fff; font-family:times-new-roman; font-size: 17px;"><!-- <img src=" {{ asset('images/location.png') }} " style="width: 20px;"> --> {{ $project->location }}<br>
+              {{ $project->type }}<br> {{ $project->system_used }}
+            </p>
           </div>
         </div>
-      </div>
+            </div>
       @endforeach
-    </div> 
+  </div>
     <div class=" row justify-content-center">
       {{ $projects->links('pagination::bootstrap-4') }}
     </div>       
