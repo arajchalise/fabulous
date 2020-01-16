@@ -89,17 +89,26 @@
     <tr><th scope="col" colspan="5">Tax 13%</th><th scope="col">{{ number_format($subtotal*0.13, 2) }}</th></tr>
     <tr><th scope="col" colspan="5">Grand Total</th><th scope="col">{{ number_format($subtotal+$subtotal*0.13, 2) }}</th></tr>
     <tr>
-      @if($orders[0]->status != 1)
+      @if($orders[0]->status < 1)
       <td colspan="4"></td><td><a href="/orders/{{ $orders[0]->remarks }}/verify" class="btn btn-success">Looks Good? , Approve for Payment</a> 
         @if($orders[0]->status != -1)
         <a href="#" class="btn btn-warning" onclick="showModel({{ $orders[0]->remarks }})">Hold Order</a>
         @endif
         @endif
+       @if($orders[0]->status == 2)
+        <td colspan="4"></td><td><a href="/orders/{{ $orders[0]->remarks }}/dispatch" class="btn btn-success">Looks Good? , Dispatch Order</a></td>
+       @endif
     </td>
   </tr>
     </tbody>
 </table>
-
+ @if($orders[0]->status == 2)
+ <?php $p = new \App\Payment();
+       $v = $p->getPaymentSlip($orders[0]->remarks);
+  ?>
+  <h2>Payment Slip</h2>
+ <img src="{{ asset('images/paymentSlip') }}/{{ $v[0]->photo }}" style="width: 100%;">
+ @endif
 <div id="myModal" class="modal">
 
   <!-- Modal content -->

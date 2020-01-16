@@ -12,6 +12,12 @@
   /*Without this, clicking will make it sticky*/
     pointer-events: none;
 }
+.dropdown-item{
+  color: #fff;
+}
+.dropdown-item:hover{
+  color: #000;
+}
 
  </style>
  <nav class="navbar navbar-expand-lg navbar-dark bg-success navbar-fixed-top sticky-top" id='nav'style="background-color: #730510 !important;">
@@ -26,7 +32,7 @@
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
             Categories
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #730510 !important; width: 400px;">
             <?php 
               $v = new \App\Category(); // your model object
               $cats = $v ->getCat(); // its method
@@ -35,23 +41,10 @@
             <a class="dropdown-item" href='/product/<?php echo str_replace(" ", "_", $cat->name)  ?>'>{{$cat->name}}</a>
             @endforeach
           </div>
-        </div>
-       <li class="nav-item">
-          <a class="nav-link" href="{{ route('services') }}" style="color:white;">Services</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ route('career') }}" style="color:white;">Career</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ route('gallary') }}" style="color:white;">Gallery</a>
-      </li>
+        </div>  
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('allProjects') }}" style="color:white;">Project</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('blog') }}" style="color:white;">Blog</a>
-      </li>
-        <li class="nav-item">
         <a class="nav-link" href="{{ route('cart') }}" style="color:white;"><img src="{{ asset('images') }}/cart.png" style="width: 40px; height: 30px;">@if(Session::has('cart'))
           @if(count(Session::get('cart')) != 0)
           <span class="badge badge-dark" style="background-color: green; font-family: Arial;">
@@ -76,8 +69,10 @@
         <li class="nav-item">
         <a class="nav-link" href="{{ route('client.login') }}" style="color:white;"><i class="glyphicon glyphicon-log-out"></i> Login</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('client.register') }}" style="color:white;"><i class="glyphicon glyphicon-log-out"></i> Register</a>
+      </li>
      @endif
-    
     </ul>
   
   </div>

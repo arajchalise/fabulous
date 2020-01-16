@@ -56,6 +56,7 @@
               $aval = $v ->getAppCounts();
               $pval = $v->getPaidCounts();
             ?>
+            <li><a href="{{ route('dispatchedOrders') }}">Dispatched Tnx</a></li>
             <li><a href="{{ route('paidOrders') }}">Payment Review Request<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $pval }}</span></a></li>
             <li><a href="{{ route('approvedOrders') }}">Approved Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $aval }}</span></a></li>
             <li><a href="{{ route('suspendedOrders') }}">Suspended Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $hval }}</span></a></li>

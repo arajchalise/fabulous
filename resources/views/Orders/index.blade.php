@@ -1,6 +1,9 @@
 @extends('layouts.admin_header')
 
 @section('content')
+@if(count($orders) == 0)
+      <p><span class="text-danger"><b>Nothing To Show</b></span></p>
+ @else
 <table class="table">
     <thead>
     <tr>
@@ -27,4 +30,5 @@
     @endforeach
     </tbody>
 </table>
+@endif
 @endsection

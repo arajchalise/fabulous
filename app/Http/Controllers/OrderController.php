@@ -32,6 +32,12 @@ class OrderController extends Controller
         return view('Orders.index', ['orders' => $orders]);
     }
 
+     public function dispatched()
+    {
+        $orders = Order::where('status', 3)->with('buyer')->with('product')->paginate(40)->unique('remarks');
+        return view('Orders.index', ['orders' => $orders]);
+    }
+
     public function showOrder($tnx)
     {
         $orders = Order::where('remarks', $tnx)->with('buyer')->with('product')->with('product.photos')->get();
@@ -62,6 +68,15 @@ class OrderController extends Controller
                 'message' => $request->message
             ]);
              return redirect()->route('orders');
+        }
+    }
+
+    public function dispatch($tnx)
+    {
+        if(Order::where('remarks', $tnx)->update([
+            'status' => 3
+        ])) {
+            return redirect()->route('orders');
         }
     }
 }

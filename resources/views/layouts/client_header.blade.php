@@ -26,7 +26,7 @@
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="{{ asset('css/material-dashboard.css')}}" rel="stylesheet" />
 </head>
 
@@ -60,14 +60,26 @@
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="{{ route('client.approvedOrders') }}">
-              <i class="material-icons">library_books</i>
+              <i class="material-icons">content_paste</i>
               <p>Approved Transaction</p>
             </a>
           </li>
           <li class="nav-item ">
+            <a class="nav-link" href="{{ route('client.declinedOrders') }}">
+              <i class="material-icons">content_paste</i>
+              <p>Declined Transaction</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="{{ route('client.pendingOrders') }}">
-              <i class="material-icons">bubble_chart</i>
+              <i class="material-icons">content_paste</i>
               <p>Pending Transaction</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{{ route('client.dispatchedOrders') }}">
+              <i class="material-icons">content_paste</i>
+              <p>Dispatched Transaction</p>
             </a>
           </li>
           <li class="nav-item ">

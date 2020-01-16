@@ -39,10 +39,11 @@
 }
 </style>
 @section('content')
+<h2 style="text-align: center;">Invoice</h2>
 <table class="table">
-  <tr><b>Fabulous Engineering</b><br>Bafal, Kathmandu<br>977-1-1111111<br>info@fabulous.com.np<br><br></tr>
+  <tr><b>Fabulous Engineering</b><br>Bafal, Kathmandu<br>977-1-1111111<br>info@fabulous.com.np<br><br></span></tr>
   <thead>
-    <th scope="col">Billing Address</th>
+    <th scope="col" >Billing Address</th>
     <th scope="col">Shipping Address</th>
   </thead>
   <tbody>
@@ -89,28 +90,23 @@
     <tr><th scope="col" colspan="5">Tax 13%</th><th scope="col">{{ number_format($subtotal*0.13, 2) }}</th></tr>
     <tr><th scope="col" colspan="5">Grand Total</th><th scope="col">{{ number_format($subtotal+$subtotal*0.13, 2) }}</th></tr>
     <tr>
-      @if($orders[0]->status != 1)
-        @if($orders[0]->status != -1)
-        <a href="#" class="btn btn-warning" onclick="showModel({{ $orders[0]->remarks }})">Make Payment</a>
-        @endif
+      @if($orders[0]->status == 1)
+      <td colspan="4"></td><td colspan=""><a href="#" class="btn btn-success" onclick="showModel({{ $orders[0]->remarks }})"><i class="material-icons">payment</i> Looks Good? , Upload Payment Proof</a> 
         @endif
     </td>
   </tr>
     </tbody>
 </table>
 
-<div id="myModal" class="modal">
+  <div id="myModal" class="modal" style="width: 70%; margin-left: auto; margin-right: auto;">
 
   <!-- Modal content -->
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="pt-3 pb-3" method="POST" action="{{ route('holdOrders') }}" enctype='multipart/form-data'>
+          <form class="pt-3 pb-3" method="POST" action="{{ route('makePayment')}}" enctype='multipart/form-data'>
           {{ csrf_field() }}
           <input type="text" name="tnx" id="id" hidden>
-          <div class="form-group">
-            <input type="
-            file" class="form-control" name="photo">
-          </div>
+          <input type="file" name="photo">
           <input type="submit" class="btn btn-success btn" value="Submit">
         </form>
         </div>

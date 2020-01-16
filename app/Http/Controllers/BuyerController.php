@@ -7,6 +7,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use Auth;
 use DateTime;
+use App\Payment;
 
 class BuyerController extends Controller
 {
@@ -27,7 +28,7 @@ class BuyerController extends Controller
 
     public function orders()
     {
-        $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->where('status', 0)->with('product')->with('product.photos')->paginate(40)->unique('remarks');
+        $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->orderBy('updated_at', 'DESC')->with('product')->with('product.photos')->paginate(40)->unique('remarks');
         return view('Buyers.index', ['orders' => $orders]);
     }
 
@@ -39,7 +40,19 @@ class BuyerController extends Controller
 
     public function pendingOrders()
     {
+        $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->where('status', 2)->with('product')->with('product.photos')->paginate(40)->unique('remarks');
+        return view('Buyers.index', ['orders' => $orders]);
+    }
+
+     public function declinedOrders()
+    {
         $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->where('status', -1)->with('product')->with('product.photos')->paginate(40)->unique('remarks');
+        return view('Buyers.index', ['orders' => $orders]);
+    }
+
+     public function dispatchedOrders()
+    {
+        $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->where('status', 3)->with('product')->with('product.photos')->paginate(40)->unique('remarks');
         return view('Buyers.index', ['orders' => $orders]);
     }
 
@@ -97,6 +110,32 @@ class BuyerController extends Controller
     public function view($txn)
     {
         $orders = Order::where('buyer_id', Auth::guard('buyer')->user()->id)->where('remarks', $txn)->with('product')->with('product.photos')->get();
-        return view('Buyers.invoice', ['orders' => $orders]);
+        return view('Buyers.show', ['orders' => $orders]);
+    }
+
+    public function payment(Request $request)
+    {
+        $tnx = $request->tnx;
+        $file = $request->file('photo');
+        $ext = $file->getClientOriginalExtension();
+         if ($file->move("images/paymentSlip", $tnx.".".$ext)){
+                if( Payment::create([
+                    'tnx_id' => $tnx,
+                    'photo' => $tnx.".".$ext
+                ])){
+                    Order::where('remarks', $tnx)->update([
+                        'status' => 2
+                    ]);
+                    return redirect()->route('client.dashboard');
+                } else {
+                    unlink('images/paymentSlip'.$tnx.".".$ext);
+                    return "Error Storing values";
+                }
+            } 
+    }
+
+    public function profile()
+    {
+        return view('Buyers.profile');
     }
 }

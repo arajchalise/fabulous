@@ -31,7 +31,7 @@ Route::prefix('client')->group(function() {
   Route::post('/login', 'Auth\BuyerLoginController@login')->name('client.login.submit');
   Route::get('/register', function(){
     return view('auth.buyer_register');
-   });
+   })->name('client.register');
   Route::post('/register', 'Auth\BuyerRegisterController@create')->name('client.register.submit');
   Route::get('logout/', 'Auth\BuyerLoginController@logout')->name('client.logout');
   Route::get('/dashboard', 'BuyerController@index')->name('client.dashboard');
@@ -39,7 +39,10 @@ Route::prefix('client')->group(function() {
   Route::get('/orders', 'BuyerController@orders')->name('client.orders');
   Route::get('/approvedOrders', 'BuyerController@approvedOrders')->name('client.approvedOrders');
   Route::get('/pendingOrders', 'BuyerController@pendingOrders')->name('client.pendingOrders');
-  Route::get('/order/{{ tnx }}/view', 'BuyerController@view');
+  Route::get('/declinedOrders', 'BuyerController@declinedOrders')->name('client.declinedOrders');
+  Route::get('/dispatchedOrders', 'BuyerController@dispatchedOrders')->name('client.dispatchedOrders');
+  Route::get('/orders/{tnx}/view', 'BuyerController@view');
+  Route::post('/orders/makePayment', 'BuyerController@payment')->name('makePayment');
 
   }) ;
 
@@ -181,9 +184,11 @@ Route::get('/orders', 'OrderController@index')->name('orders');
 Route::get('/orders/approved', 'OrderController@approved')->name('approvedOrders');
 Route::get('/orders/suspended', 'OrderController@suspended')->name('suspendedOrders');
 Route::get('/orders/paid', 'OrderController@paid')->name('paidOrders');
+Route::get('/orders/dispatched', 'OrderController@dispatched')->name('dispatchedOrders');
 Route::get('/orders/{tnx}', 'OrderController@showOrder');
 Route::get('/orders/{tnx}/verify', 'OrderController@verifyOrder');
 Route::post('/orders/hold', 'OrderController@holdOrder')->name('holdOrders');
+Route::get('/orders/{txn}/dispatch', 'OrderController@dispatch');
 
 // CKEditor
 Route::post('/ckeditor/upload', 'CKController@upload');
