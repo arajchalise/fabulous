@@ -26,7 +26,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse justify-content-start"" id="navbarSupportedContent">
     <ul class="navbar-nav mx-auto">
         <div class="dropdown">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
@@ -43,7 +43,7 @@
           </div>
         </div>  
     </ul>
-    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+    <ul class="nav navbar-nav navbar-right ml-auto">
       <li class="nav-item">
         <a class="nav-link" href="{{ route('cart') }}" style="color:white;"><img src="{{ asset('images') }}/cart.png" style="width: 40px; height: 30px;">@if(Session::has('cart'))
           @if(count(Session::get('cart')) != 0)

@@ -12,7 +12,6 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::with('department')->get();
-        //return $services;
         return view('services', ['services' => $services]);
     }
 
@@ -42,25 +41,29 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        if( Service::create([
+        if (Auth::check()) {
+            if( Service::create([
             'type_of_service' => $request->name,
             'description' => $request->description,
             'department_id' => Auth::user()->department_id
-        ])){
-            return redirect()->route('service');
-        }
-        return "Error";
+            ])){
+                return redirect()->route('service');
+            }
+            return "Error";
+        } return redirect()->route('login');
     }
 
     public function update(Request $request)
     {
-        if (Service::where('id', $request->id)->update([
+        if (Auth::check()) {
+            if (Service::where('id', $request->id)->update([
                 'type_of_service' => $request->name,
                 'description' => $request->description
-        ])) {
-            return redirect()->route('service');
-        }
-        return "Error";
+            ])) {
+                return redirect()->route('service');
+            }
+            return "Error";
+        } return redirect()->route('login');
     }
 
     public function destroy($id)

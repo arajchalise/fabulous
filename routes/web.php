@@ -43,6 +43,7 @@ Route::prefix('client')->group(function() {
   Route::get('/dispatchedOrders', 'BuyerController@dispatchedOrders')->name('client.dispatchedOrders');
   Route::get('/orders/{tnx}/view', 'BuyerController@view');
   Route::post('/orders/makePayment', 'BuyerController@payment')->name('makePayment');
+  Route::post('/orders/trackOrder', 'BuyerController@track')->name('trackOrder');
 
   }) ;
 
@@ -66,6 +67,10 @@ Route::get('/client/create', function(){
 Route::get('client/{client}/edit', 'ClientController@edit');
 Route::post('client/update', 'ClientController@update')->name('clientUpdate');
 Route::get('/client/{id}/destroy', 'ClientController@destroy');
+
+// Buyers 
+Route::get('/buyers', 'HomeController@all')->name('buyers');
+
 
 // Projects
 // Route::get('/allprojects', 'ProjectController@allprojects')->name('projects');
@@ -162,6 +167,7 @@ Route::post('/product/update', 'ProductController@update')->name('updateProduct'
 Route::post('/product/{id}/destroy', 'ProductController@destroy');
 Route::get('/products/{product}', 'ProductController@show');
 Route::get('/product/{q}', 'ProductController@getProductCategory');
+Route::post('/product/bulkUpdate', 'ProductController@bulkUpdate')->name('bulkEdit');
 
 
 // categories
@@ -189,7 +195,7 @@ Route::get('/orders/{tnx}', 'OrderController@showOrder');
 Route::get('/orders/{tnx}/verify', 'OrderController@verifyOrder');
 Route::post('/orders/hold', 'OrderController@holdOrder')->name('holdOrders');
 Route::get('/orders/{txn}/dispatch', 'OrderController@dispatch');
-
+Route::post('/orders/searchOrders', 'OrderController@filter')->name('filterOrderList');
 // CKEditor
 Route::post('/ckeditor/upload', 'CKController@upload');
 

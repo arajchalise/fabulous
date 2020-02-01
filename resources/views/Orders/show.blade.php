@@ -39,6 +39,8 @@
 }
 </style>
 @section('content')
+<div id="toPrint">
+  <h2 style="text-align: center;">Invoice</h2>
 <table class="table">
   <tr><b>Fabulous Engineering</b><br>Bafal, Kathmandu<br>977-1-1111111<br>info@fabulous.com.np<br><br></tr>
   <thead>
@@ -102,6 +104,8 @@
   </tr>
     </tbody>
 </table>
+</div>
+<div><a href="#" style="float: right;" onclick="PrintDiv();" class="btn btn-success"><i class="glyphicon glyphicon-print"></i> Print Invoice</a></div>
  @if($orders[0]->status == 2)
  <?php $p = new \App\Payment();
        $v = $p->getPaymentSlip($orders[0]->remarks);
@@ -158,3 +162,13 @@
     }
 </script>
 @endsection
+<script type="text/javascript">   
+    function PrintDiv() {    
+       var divToPrint = document.getElementById('toPrint');
+       var popupWin = window.open('', '_blank');
+       popupWin.document.open();
+       var str = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head><body onload="window.print()">';
+          popupWin.document.write(str+ divToPrint.innerHTML + '</html>');
+        popupWin.document.close();
+            }
+</script>

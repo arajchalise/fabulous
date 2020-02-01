@@ -9,7 +9,7 @@
      
         .footer{
         background-color:#730510;
-        height: 250px;
+        min-height: 250px;
         width: 100%;
         
       }
@@ -48,7 +48,7 @@
   </style>
   <body style="margin-top: 0px;">
    
-  @include('includes.header')
+  @include('includes.product_header')
 <div class="container-fluid row">
   <div class="col-lg-6">
     <div class="container my-4">
@@ -114,6 +114,7 @@
             <input type="number" class="form-control" id="quantity" name="qty" min="1" value="1">
             </div>
         </div>
+        <input type="text" name="reward" value="{{ $product[0]->rewards }}" hidden>
       <br>
       <input type="submit" name="addToCart" value="Add To Cart" class="btn btn-primary">
       <input type="submit" name="buyNow" value="Buy Now" class="btn btn-success">

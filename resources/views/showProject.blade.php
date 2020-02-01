@@ -13,7 +13,7 @@
      
         .footer{
         background-color:#730510;
-        height: 250px;
+        min-height: 250px;
         width: 100%;
         
       }

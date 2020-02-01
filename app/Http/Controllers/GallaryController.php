@@ -24,11 +24,6 @@ class GallaryController extends Controller
         return view('gallary', ['galleries' => $galleries]);
     }
 
-    public function show(Gallary $gallary)
-    {
-        return Gallary::find($gallary->id);
-    }
-
     public function create()
     {
         if (Auth::check()) {
@@ -50,27 +45,31 @@ class GallaryController extends Controller
 
     public function update(Request $request)
     {
-        if(Gallary::where('id', $request->id)->update([
+        if (Auth::check()) {
+            if(Gallary::where('id', $request->id)->update([
             'caption' => $request->caption
         ])) {
             return redirect()->route('gallery');
-        }
-        return "Error";
+            }
+            return "Error";
+        } return redirect()->route('login');
     }
 
     public function store(Request $request)
     {
-            $file = $request->file('photo');
-            $name = str_replace(" ", "_", $file->getClientOriginalName());
-            $ext = $file->getClientOriginalExtension();
-            if ($file->move("images/galleryImages", $name)){
-                if( Gallary::create([
-                    'photo' => $name,
-                    'caption' => $request->caption
-                ])){
-                    return redirect()->route('gallery');
+            if (Auth::check()) {
+                $file = $request->file('photo');
+                $name = str_replace(" ", "_", $file->getClientOriginalName());
+                $ext = $file->getClientOriginalExtension();
+                if ($file->move("images/galleryImages", $name)){
+                    if( Gallary::create([
+                        'photo' => $name,
+                        'caption' => $request->caption
+                    ])){
+                        return redirect()->route('gallery');
+                    }
                 }
-            }
+            } return redirect()->route('login');
     }
 
     public function destroy($id)

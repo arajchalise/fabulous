@@ -31,7 +31,7 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $project =  Project::find($project->id);
-        return view('Projects.show', ['project' => $project]);
+        return view('showProject', ['project' => $project]);
     }
 
     public function create()
@@ -57,32 +57,35 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $file = $request->file('photo');
-        $name = str_replace(" ", "_", $request->pname);
-        $ext = $file->getClientOriginalExtension();
-        if($file->move('images/projectImages', $name.".".$ext)){
-            if(Project::create([
-                'name' => $request->pname,
-                'description' => $request->description,
-                'photo' => $name.".".$ext,
-                'client_id' => $request->cid,
-                'department_id' => Auth::user()->department_id,
-                'location' => $request->location,
-                'type' => $request->type,
-                'system_used' => $request->system_used,
-                'status' => $request->status
-            ])){
-                return redirect()->route('projects');
-            } else {
-                return "Error storing value";
-            }
+        if (Auth::check()) {
+                $file = $request->file('photo');
+            $name = str_replace(" ", "_", $request->pname);
+            $ext = $file->getClientOriginalExtension();
+            if($file->move('images/projectImages', $name.".".$ext)){
+                if(Project::create([
+                    'name' => $request->pname,
+                    'description' => $request->description,
+                    'photo' => $name.".".$ext,
+                    'client_id' => $request->cid,
+                    'department_id' => Auth::user()->department_id,
+                    'location' => $request->location,
+                    'type' => $request->type,
+                    'system_used' => $request->system_used,
+                    'status' => $request->status
+                ])){
+                    return redirect()->route('projects');
+                } else {
+                    return "Error storing value";
+                }
 
-        }
+            }
+        } return redirect()->route('login');
     }
 
     public function update(Request $request)
     {
-        if( Project::where('id', $request->id)
+       if (Auth::check()) {
+            if( Project::where('id', $request->id)
                         ->update([
                             'name' => $request->pname,
                             'description' => $request->description,
@@ -93,8 +96,9 @@ class ProjectController extends Controller
 
                         ])){
             return redirect()->route('projects');
-        }
-        return "Error updating data";
+            }
+            return "Error updating data";
+       } return redirect()->route('login');
             
     }
 

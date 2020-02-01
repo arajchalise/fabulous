@@ -26,20 +26,17 @@ class DepartmentController extends Controller
            }
        }
 
-    public function show(Department $department)
-       {
-           return Department::find($department->id);
-       }
-
     public function store(Request $request)
        {
-            if( Department::create([
+            if (Auth::check()) {
+              if( Department::create([
                 'name' => $request->name,
                 'description' => $request->description
-            ])){
-              return redirect()->route('departments');
-            }
-            return "Error";
+              ])){
+                return redirect()->route('departments');
+              }
+              return "Error";
+            } return redirect()->route('login');
        }
 
     public function create()
@@ -63,14 +60,16 @@ class DepartmentController extends Controller
 
     public function update(Request $request)
        {
-            if(Department::where('id', '=', $request->id)
+            if (Auth::check()) {
+                if(Department::where('id', '=', $request->id)
                                 ->update([
                                     'name' => $request->name,
                                     'description' => $request->description
                                 ])){
                 return redirect()->route('departments');
-            }
-            return "Error";   
+              }
+              return "Error"; 
+            } return redirect()->route('login'); 
        }
 
     public function destroy($id)

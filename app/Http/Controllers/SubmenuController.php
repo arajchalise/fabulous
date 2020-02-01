@@ -9,11 +9,10 @@ use Auth;
 
 class SubmenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if (Auth::check()) {
@@ -24,11 +23,6 @@ class SubmenuController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         if (Auth::check()) {
@@ -38,12 +32,6 @@ class SubmenuController extends Controller
         return redirect()->route('login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if( Submenu::create([
@@ -56,23 +44,7 @@ class SubmenuController extends Controller
         return "Error";
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Submenu  $submenu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Submenu $submenu)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Submenu  $submenu
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Submenu $submenu)
     {
         if (Auth::check()) {
@@ -82,13 +54,6 @@ class SubmenuController extends Controller
         return redirect()->route('login');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Submenu  $submenu
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         if (Submenu::where('id', $request->id)->update([
@@ -100,12 +65,6 @@ class SubmenuController extends Controller
         return "Error";
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Submenu  $submenu
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
        if (Auth::check()) {

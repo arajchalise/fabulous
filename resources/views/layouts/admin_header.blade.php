@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-      tinymce.init({
-        selector: 'textarea'
-      });
-    </script> -->
 <script src="https://cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/style.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="icon" href="{{ asset('images/logo.png')}}" type="image/gif">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -56,11 +50,13 @@
               $aval = $v ->getAppCounts();
               $pval = $v->getPaidCounts();
             ?>
+           @if(Auth::user()->department->name != 'IT')
             <li><a href="{{ route('dispatchedOrders') }}">Dispatched Tnx</a></li>
             <li><a href="{{ route('paidOrders') }}">Payment Review Request<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $pval }}</span></a></li>
             <li><a href="{{ route('approvedOrders') }}">Approved Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $aval }}</span></a></li>
             <li><a href="{{ route('suspendedOrders') }}">Suspended Tnx<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $hval }}</span></a></li>
             <li><a href="{{ route('orders') }}">Tnx Review Request<span class="badge badge-light" style="background-color: red; font-family: Arial;">{{ $cats }}</span></a></li>
+            @endif
             <li> <a>{{ Auth::user()->name }}</a></li>           
             <li><a href="#">
                 <form action="/admin/logout" method="POST">
@@ -79,6 +75,17 @@
                 <li>
                     <a href="{{ route('clients') }}" style="text-align: center;">Clients</a>
                 </li>
+                @if(Auth::user()->department->name != 'IT')
+                    <li>
+                        <a href="{{ route('buyers') }}" style="text-align: center;">Buyers</a>
+                    </li>
+                    <li>
+                    <a href="{{ route('categories') }}" style="text-align: center;">Category</a>
+                </li>  
+                 <li>
+                    <a href="{{ route('product') }}" style="text-align: center;">Products</a>
+                </li> 
+                @endif
                 <li>
                     <a href="{{ route('projects') }}" style="text-align: center;">  Projects</a>
                 </li>
@@ -105,13 +112,7 @@
                 </li>
                 <li>
                     <a href="{{ route('careers') }}" style="text-align: center;">Career</a>
-                </li>
-                <li>
-                    <a href="{{ route('categories') }}" style="text-align: center;">Category</a>
                 </li>  
-                 <li>
-                    <a href="{{ route('product') }}" style="text-align: center;">Products</a>
-                </li>   
             </ul>
         </div>
         <!-- /.navbar-collapse -->

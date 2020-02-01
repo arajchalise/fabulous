@@ -27,11 +27,6 @@ class ClientController extends Controller
         
     }
 
-    public function show(Client $client)
-    {
-        return Client::find($client->id);
-    }
-
     public function create()
     {
         if(Auth::check()){
@@ -53,18 +48,21 @@ class ClientController extends Controller
 
     public function update(Request $request)
     {
-        if(Client::where('id', '=', $request->id)
+        if (Auth::check()) {
+            if(Client::where('id', '=', $request->id)
                         ->update([
                             'name' => $request->name
                         ])){
             return redirect()->route('clients');
-        } 
-        return "Error Updating Detail";
+            } 
+            return "Error Updating Detail";
+        } return redirect()->route('login');
     }
 
     public function store(Request $request)
     {
-        $file = $request->file('photo');
+        if (Auth::check()) {
+            $file = $request->file('photo');
             $name = str_replace(" ", "_", $request->name);
             $ext = $file->getClientOriginalExtension();
             if ($file->move("images/clientImages", $name.".".$ext)){
@@ -80,6 +78,7 @@ class ClientController extends Controller
                 }
             } 
             return "Error Uploading file";
+        } return redirect()->route('login');
     }
 
 

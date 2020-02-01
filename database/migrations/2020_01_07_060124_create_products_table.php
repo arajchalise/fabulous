@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->unsignedBigInteger('category_id');
+            $table->integer('stock');
+            $table->integer('rewards');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

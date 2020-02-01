@@ -41,26 +41,30 @@ class CareerController extends Controller
 
     public function store(Request $request)
     {
-        if(Career::create([
+        if (Auth::check()) {
+            if(Career::create([
             'position' => $request->position,
             'description' => $request->description,
             'department_id' => Auth::user()->department_id
 
-        ])){
+            ])){
             return redirect()->route('careers');
-        }
-        return "Error";
+            }
+            return "Error";
+        } return redirect()->route('login');
     }
 
     public function update(Request $request)
     {
-        if (Career::where('id', $request->id)->update([
+        if (Auth::check()) {
+            if (Career::where('id', $request->id)->update([
                 'position' => $request->position,
                 'description' => $request->description
-        ])) {
-            return redirect()->route('careers');
-        }
-        return "Error";
+            ])) {
+                return redirect()->route('careers');
+            }
+            return "Error";
+        } return redirect()->route('login');
     }
 
     public function show()

@@ -4,7 +4,7 @@
      
         .footer{
         background-color:#730510;
-        height: 250px;
+        min-height: 250px;
         width: 100%;
         
       }
@@ -69,7 +69,6 @@
                 <td><form>
                   {{ csrf_field() }}
                   <input class="form-control" type="number" name="qty" value="{{ $product['qty'] }}" min="1" onchange="updateCart({{$i-1}})" id="qty{{$i-1}}">
-                  
                 </form></td>
                 <td> {{ $product['amt'] }}</td>
                 <td><button onclick="removeCart({{$i-1}});">X</button></td>
@@ -104,7 +103,7 @@
                 data: {qty:qty, id:id, _token:_token},
                 success: function(data) {
                   location.reload(true);
-                  // console.log(data);
+                  console.log(data);
                 }
               })
     }

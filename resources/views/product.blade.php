@@ -15,7 +15,7 @@
      
         .footer{
         background-color:#730510;
-        height: 250px;
+        min-height: 250px;
         width: 100%;
         
       }
@@ -51,6 +51,9 @@
 .carousel-indicators {
     bottom: -50px;
 }
+#productRrow {
+  background-color: #EDF5E1;
+}
   </style>
   <body style="margin-top: 0px;">
    
@@ -68,39 +71,39 @@
 
 <div class="container-fluid">
   <div class="container pt-5 pb-5">
-    <div class="row">
+    <div class="row" id="productRow">
       @foreach($products as $product)
             <div class="item col-lg-3 col-sm-12 col-md-4" style="margin-bottom: 10px;">
               <div class="card" style="width: 100%; border: none;" >
                 <!-- <img src="{{('images/productImages')}}/{{ $product->photos[0]->photo }}" class="card-img-top" alt="{{ $product->name }}" height="250"> -->
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleControls{{ $product->id }}" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 @foreach($product->photos as $photo)
                   @if($loop->first)
                     <div class="carousel-item active">
-                    <img class="d-block w-100" src="{{ asset('images/productImages')}}/{{ $photo->photo }}" height="250">
+                    <img class="d-block w-100" src="{{ asset('images/productImages')}}/{{ $photo->photo }}" alt="{{ $product->name }}" height="250">
                     </div>
                     @else
                      <div class="carousel-item">
-                      <img class="d-block w-100" src="{{ asset('images/productImages')}}/{{ $photo->photo }}" alt="First slide" height="250">
+                      <img class="d-block w-100" src="{{ asset('images/productImages')}}/{{ $photo->photo }}" alt="{{ $product->name }}" height="250">
                     </div>
                   @endif
                 @endforeach
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="background-color: #000; height: 30px; margin-top: 40%;">
+              <a class="carousel-control-prev" href="#carouselExampleControls{{ $product->id}}" role="button" data-slide="prev" style="background-color: #000; height: 30px; margin-top: 40%;">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
               </a>
-              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="background-color: #000; height: 30px; margin-top: 40%;">
+              <a class="carousel-control-next" href="#carouselExampleControls{{ $product->id}}" role="button" data-slide="next" style="background-color: #000; height: 30px; margin-top: 40%;">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
             </div>
           
-          <div class="container-fluid" style="background-color:#730510; min-height:50px;">
-            <h5 class="text-center pt-2" style="color: white; font-family:times-new-roman;"><a href="/products/{{ $product->id }}" style="color: white">{{ Str::limit($product->name, 18) }}</a>
+          <div class="container-fluid" style="background-color:none; min-height:50px;">
+            <h5 class="text-center pt-2" style="color: #000;"><a href="/products/{{ $product->id }}" style="color: #000">{{ Str::limit($product->name, 18) }}</a>
             </h5>
-            <p style="color: #fff; font-family:times-new-roman; font-size: 17px;"><!-- <img src=" {{ asset('images/location.png') }} " style="width: 20px;"> --> Rs. {{ $product->price }}/ unit<br>
+            <p style="color: #000; font-size: 17px;"><!-- <img src=" {{ asset('images/location.png') }} " style="width: 20px;"> --> Rs. {{ $product->price }}/ unit<br>
               {{ $product->brand_name }}<br> {{ $product->category->name }}
             </p>
           </div>
@@ -115,6 +118,7 @@
       <input type="text" name="price" value="{{ $product->price }}" hidden>
       <input type="number" class="form-control" id="quantity" name="qty" min="1" value="1" hidden>
       <input type="text" name="photo" value="{{ $product->photos[0]->photo }}" hidden>
+      <input type="text" name="reward" value="{{ $product->rewards }}" hidden>
       <br>
       <input type="submit" name="addToCart" value="Add To Cart" class="btn btn-primary" style="width: 48%;">
       <input type="submit" name="buyNow" value="Buy Now" class="btn btn-success" style="width: 48%;">

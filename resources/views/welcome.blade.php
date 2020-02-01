@@ -21,7 +21,7 @@
       }
         .footer{
         background-color:#730510;
-        height: 250px;
+        min-height: 250px;
         width: 100%;
         
       }
@@ -202,7 +202,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
     <div class="row">
     @foreach($data['clients'] as $client)
-        <div class="col-lg-2 col-md-2 col-sm-3 " style="margin-bottom: 5px;">
+        <div style="margin-bottom: 5px; width: 100px; margin-left: 20px;">
         <img src="{{ asset('images/clientImages') }}/{{ $client->logo }}" style="width: 100%; height: 100px;">
        </div>
     @endforeach

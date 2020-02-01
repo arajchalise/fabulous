@@ -16,7 +16,8 @@ class Order extends Model
         'qty',
         'total_amount',
         'status',
-        'remarks'
+        'remarks',
+        'rewards'
     ];
 
     public function buyer()
@@ -46,5 +47,20 @@ class Order extends Model
     {
         $data = $this->where('status', 2)->get()->unique('remarks');
         return $data->count();
+    }
+
+    public function getSales()
+    {
+       $date = date('Y-m-d');
+        // $date = date('2020-01-21');
+       $date = strtotime($date);
+       $data = array();
+        for($i = 1; $i <= 7; $i++)
+            {
+                $startDate = date('Y-m-d', $date - $i*86400);
+                $data['date'][$i] = $startDate;
+                $data['data'][$i] = $this->where('status', 3)->where('created_at', 'like', $startDate.'%')->get()->sum('total_amount');
+            }
+        return $data;
     }
 }

@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->text('remarks')->nullable();
             $table->decimal('total_amount');
             $table->integer('status');
+            $table->integer('rewards');
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

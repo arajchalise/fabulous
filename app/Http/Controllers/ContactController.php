@@ -34,7 +34,8 @@ class ContactController extends Controller
 
     public function sendEmail(Request $request, Contact $contact)
     {
-        $receiver = Contact::find($contact->id);
+        if (Auth::check()) {
+            $receiver = Contact::find($contact->id);
         //return $receiver;
         $to = $receiver->email;
         $headers = "From: contact@fabulous.com";
@@ -48,7 +49,8 @@ class ContactController extends Controller
                 'status' => 1
             ]);
             return redirect()->route('getContacts');
-       }
-       return "Error Sending message";
+             }
+               return "Error Sending message";
+        } return redirect()->route('login');
     }
 }

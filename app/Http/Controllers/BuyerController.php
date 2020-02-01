@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DateTime;
 use App\Payment;
+use App\product;
 
 class BuyerController extends Controller
 {
@@ -15,11 +16,7 @@ class BuyerController extends Controller
     {
         $this->middleware('auth:buyer');
     }
-    /**
-     * show dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $orders = Order::where('status', 0)->with('product')->paginate(40)->unique('remarks');
@@ -97,8 +94,13 @@ class BuyerController extends Controller
                         'qty' => $session['qty'],
                         'remarks' => $tnx,
                         'total_amount' => $session['amt'],
-                        'status' => 0
+                        'status' => 0,
+                        'rewards' => $session['rewards']
                 ])->id;
+                $stock = product::find($session['id'])->stock;
+                product::where('id', $session['id'])->update([
+                    'stock' => $stock - $session['qty']
+                ]);
                 $i++;
             }
             $request->session()->forget('cart');
@@ -134,8 +136,17 @@ class BuyerController extends Controller
             } 
     }
 
+    public function track(Request $request)
+    {
+        $ref = $request->key;
+        $ord = Order::where('remarks', $ref)->get();
+        $order = $ord[0];
+        return view('Buyers.trackOrder', ['order' => $order]);
+    }
+
     public function profile()
     {
         return view('Buyers.profile');
     }
+
 }
