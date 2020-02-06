@@ -54,4 +54,9 @@ class Buyer extends Authenticatable
             }
         return $data;
     }
+
+    public function photo()
+    {
+        return $this->hasMany('App\ClientPhoto');
+    }
 }

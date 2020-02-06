@@ -9,6 +9,8 @@ use Auth;
 use DateTime;
 use App\Payment;
 use App\product;
+use App\ClientPhoto;
+use Hash;
 
 class BuyerController extends Controller
 {
@@ -147,6 +149,53 @@ class BuyerController extends Controller
     public function profile()
     {
         return view('Buyers.profile');
+    }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('file');
+        $buyer_id = $request->buyer_id;
+        $ext = $file->getClientOriginalName();
+        $ext = explode(".", $ext);
+        $name = $buyer_id."_".$ext[0];
+        if (!$file->isValid()) {
+            return "Error in file.. ";
+        } else {
+            if($file->move('images/buyerImages/', $name.".".$ext[1])){
+            ClientPhoto::create([
+                'buyer_id' => $buyer_id,
+                'photo' => $name.".".$ext[1],
+                'type' => $request->type
+            ]);
+            return redirect()->route('client.profile');
+        } 
+        return "Error uploading file";
+        }
+        
+    }
+
+    public function changePassword()
+    {
+        return view('auth.changePassword');
+    }
+
+    public function changedPassword(Request $request)
+    {
+        if (!Hash::check($request->cpassword, Auth::guard('buyer')->user()->password)) {
+            return back()->with('error', "Current password mismatch");
+        }
+        if (strcmp($request->cpassword, $request->password) == 0) {
+            return back()->with('error', "Your Current password cant be used as a new password");
+        }
+        $request->validate([
+            'cpassword' => 'required',
+            'password' => 'required|min:6|confirmed'
+      ]);
+        $buyer = Auth::guard('buyer')->user();
+        $buyer->password = bcrypt($request->password);
+        if ($buyer->save()) {
+            return redirect()->route('client.profile');
+        } return "Error Changing Password";
     }
 
 }

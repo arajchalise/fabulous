@@ -102,6 +102,14 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="{{ route('client.profile') }}">Profile</a>
                   <div class="dropdown-divider"></div>
+                  <?php 
+                      $h = new \App\Reward();
+                      $hval = $h->getReward();
+                   ?>
+                  <a class="dropdown-item" href="#">Rewards <span class="badge badge-light" style="background-color: red; font-family: Arial; color: #fff;"> {{ $hval }}</span></a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ route('client.changePassword') }}">Change Password</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('client.logout') }}">Log out</a>
                 </div>
               </li>

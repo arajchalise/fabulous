@@ -1,4 +1,4 @@
-@extends('layouts.admin_header')
+@extends('layouts.client_header')
 
 @section('content')
 <div class="container">
@@ -9,14 +9,14 @@
             {{ session('error') }}
           </div>
           @endif
-         <form action="{{ route('admin.changedPassword') }}" method="POST">
+         <form action="{{ route('client.changedPassword') }}" method="POST">
             {{ csrf_field() }}
        
       <div class="form-group">
       <label for="password">Current Password </label>
       <input id="password" type="password" class="form-control @error('currentPassword') is-invalid @enderror" name="cpassword" required autocomplete="new-password">
       @error('currentPassword')
-      <span class="alert alert-danger" role="alert">
+      <span class="invalid-feedback" role="alert">
       <strong>{{ $message }}</strong>
       </span>
       @enderror
@@ -25,7 +25,7 @@
       <label for="password">Password </label>
       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
       @error('password')
-      <span class="alert alert-danger" role="alert">
+      <span class="invalid-feedback" role="alert">
       <strong>{{ $message }}</strong>
       </span>
       @enderror

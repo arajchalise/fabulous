@@ -23,6 +23,7 @@ Route::get('/products', 'ProductController@index')->name('products');
 Route::group(['prefix' => 'admin'], function () {
 
     Auth::routes();
+  Route::post('/changedPassword', 'UserController@changedPassword')->name('admin.changedPassword');
 
 });
 
@@ -36,6 +37,8 @@ Route::prefix('client')->group(function() {
   Route::get('logout/', 'Auth\BuyerLoginController@logout')->name('client.logout');
   Route::get('/dashboard', 'BuyerController@index')->name('client.dashboard');
   Route::get('/profile', 'BuyerController@profile')->name('client.profile');
+  Route::get('/changePassword', 'BuyerController@changePassword')->name('client.changePassword');
+  Route::post('/changedPassword', 'BuyerController@changedPassword')->name('client.changedPassword');
   Route::get('/orders', 'BuyerController@orders')->name('client.orders');
   Route::get('/approvedOrders', 'BuyerController@approvedOrders')->name('client.approvedOrders');
   Route::get('/pendingOrders', 'BuyerController@pendingOrders')->name('client.pendingOrders');
@@ -44,6 +47,7 @@ Route::prefix('client')->group(function() {
   Route::get('/orders/{tnx}/view', 'BuyerController@view');
   Route::post('/orders/makePayment', 'BuyerController@payment')->name('makePayment');
   Route::post('/orders/trackOrder', 'BuyerController@track')->name('trackOrder');
+  Route::post('/picture/upload', 'BuyerController@upload')->name('pictureUpload');
 
   }) ;
 

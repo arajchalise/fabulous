@@ -23,7 +23,7 @@
               @if(Auth::user()->role->name == 'Admin')
                 @if($user->role->name == 'Unverified')<a href="/user/{{ $user->id }}/verify" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Verify</a>@endif
               @endif
-              @if($user->id == Auth::user()->id)<a href="{{ route('userEdit') }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</a>@endif
+              @if($user->id == Auth::user()->id)<a href="{{ route('userEdit') }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Change Password</a>@endif
               @if($user->id != Auth::user()->id)<a href="/user/{{ $user->id }}/destroy" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>@endif
             </td>
         </tr>

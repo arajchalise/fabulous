@@ -15,7 +15,12 @@ class CreateClientPhotosTable extends Migration
     {
         Schema::create('client_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('buyer_id');
+            $table->string('photo');
+            $table->integer('type');
             $table->timestamps();
+
+            $table->foreign('buyer_id')->references('id')->on('buyers')->onDelete('cascade');
         });
     }
 

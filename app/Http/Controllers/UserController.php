@@ -7,7 +7,7 @@ use App\User;
 use App\Department;
 use App\Role;
 use Auth;
-use Illuminate\Support\Facades\Hash;
+use Hash;
 
 class UserController extends Controller
 {
@@ -52,17 +52,23 @@ class UserController extends Controller
         return view('Users.edit');
     }
 
-    public function update(Request $request)
+   public function changedPassword(Request $request)
     {
-        // if(User::where('id', $request->id)
-        //         ->update([
-        //             'name' => $request->name,
-        //             'password' => bcrypt($request->password)
-        //         ])){
-        //     return redirect()->route('logout');
-
-        // }
-        return Hash::make($request->password.$request->token);
+        if (!Hash::check($request->cpassword, Auth::user()->password)) {
+            return back()->with('error', "Current password mismatch");
+        }
+        if (strcmp($request->cpassword, $request->password) == 0) {
+            return back()->with('error', "Your Current password cant be used as a new password");
+        }
+        $request->validate([
+            'cpassword' => 'required',
+            'password' => 'required|min:6|confirmed'
+      ]);
+        $buyer = Auth::user();
+        $buyer->password = bcrypt($request->password);
+        if ($buyer->save()) {
+            return redirect()->route('users');
+        } return "Error Changing Password";
     }
 
     public function destroy($id)
@@ -73,17 +79,4 @@ class UserController extends Controller
         return "Error Deleting file";
     }
 
-    // public function login(Request $request)
-    // {
-    //     $email = $request->email;
-    //     $pass = $request->pass;
-    //     if(Auth::attempt([
-    //         'email' => $email,
-    //         'password' => $pass 
-    //     ])) {
-    //         print "ok";
-    //     } else {
-    //         print "NOt ok";
-    //     }
-    // }
 }

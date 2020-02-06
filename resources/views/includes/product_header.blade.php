@@ -56,12 +56,13 @@
       </li>
       @if(Auth::guard('buyer')->check())
       <div class="dropdown">
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"  style="color: #fff;">
             {{ Auth::guard('buyer')->user()->first_name }}
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: -100%; background-color: #730510 !important; margin-top: -10px;">
           <a class="dropdown-item" href='/client/dashboard'><span><i class="glyphicon glyphicon-log-out"></i></span> Dashboard</a>
           <a class="dropdown-item" href='/client/profile'><span><i class="glyphicon glyphicon-log-out"></i></span> Profile</a>
+          <div class="dropdown-divider"></div>
             <a class="dropdown-item" href='/client/logout'><span><i class="glyphicon glyphicon-log-out"></i></span> Logout</a>
           </div>
         </div>
